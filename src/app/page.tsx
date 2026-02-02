@@ -27,7 +27,8 @@ export default function Home() {
           <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             <NavLink href="#features">Features</NavLink>
             <NavLink href="#prompts">Examples</NavLink>
-            <NavLink href="https://github.com" external>GitHub</NavLink>
+            <NavLink href="/demo">Demo</NavLink>
+            <NavLink href="https://github.com/Spidy29/skillmap" external>GitHub</NavLink>
           </div>
 
           {/* Right Actions */}

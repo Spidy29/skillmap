@@ -14,6 +14,14 @@ import {
   learningPathSchema,
   ProgressMeter,
   progressMeterSchema,
+  SkillRadar,
+  skillRadarSchema,
+  SkillComparison,
+  skillComparisonSchema,
+  SalaryProjection,
+  salaryProjectionSchema,
+  CareerTimeline,
+  careerTimelineSchema,
 } from "@/components/generative";
 import type { TamboComponent, TamboTool } from "@tambo-ai/react";
 import { z } from "zod";
@@ -157,5 +165,29 @@ export const components: TamboComponent[] = [
     description: "A progress visualization component showing overall career readiness with category breakdowns, trends, and next milestone. Use this to show how ready the user is for their target role.",
     component: ProgressMeter,
     propsSchema: progressMeterSchema,
+  },
+  {
+    name: "SkillRadar",
+    description: "A radar chart visualization comparing user's current skill levels vs required levels for target role. Use this to show a visual comparison of skills in a spider/radar format.",
+    component: SkillRadar,
+    propsSchema: skillRadarSchema,
+  },
+  {
+    name: "SkillComparison",
+    description: "A horizontal bar chart comparing user's skills against market average and showing hire line. Use this to show how user compares to other candidates in the job market.",
+    component: SkillComparison,
+    propsSchema: skillComparisonSchema,
+  },
+  {
+    name: "SalaryProjection",
+    description: "An area chart showing salary growth projection comparing current career path vs upskilling path. Use this when discussing salary potential and ROI of learning new skills.",
+    component: SalaryProjection,
+    propsSchema: salaryProjectionSchema,
+  },
+  {
+    name: "CareerTimeline",
+    description: "A visual timeline showing career progression milestones with skills to acquire at each stage. Use this to show a step-by-step career roadmap with expected timelines and salary.",
+    component: CareerTimeline,
+    propsSchema: careerTimelineSchema,
   },
 ];
