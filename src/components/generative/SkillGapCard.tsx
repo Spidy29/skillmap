@@ -76,15 +76,16 @@ const getResourceIcon = (type: string) => {
 };
 
 export function SkillGapCard({
-    skill,
-    currentLevel,
-    requiredLevel,
-    priority,
-    estimatedTime,
-    reason,
-    resources,
-}: SkillGapCardProps) {
-    const priorityConfig = getPriorityConfig(priority);
+    skill = "Unknown Skill",
+    currentLevel = "none",
+    requiredLevel = "advanced",
+    priority = "medium",
+    estimatedTime = "Unknown",
+    reason = "This skill is needed for career growth.",
+    resources = [],
+}: Partial<SkillGapCardProps>) {
+    const safeResources = Array.isArray(resources) ? resources : [];
+    const priorityConfig = getPriorityConfig(priority || "medium");
 
     return (
         <motion.div
@@ -133,7 +134,7 @@ export function SkillGapCard({
                     Recommended Resources:
                 </h4>
                 <div className="space-y-2">
-                    {resources.map((resource, index) => (
+                    {safeResources.map((resource, index) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, x: -10 }}

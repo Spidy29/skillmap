@@ -44,13 +44,17 @@ const getTrendIcon = (trend: string) => {
 };
 
 export function ProgressMeter({
-    currentRole,
-    targetRole,
-    overallReadiness,
-    breakdown,
-    insights,
-    nextMilestone,
-}: ProgressMeterProps) {
+    currentRole = "Current Role",
+    targetRole = "Target Role",
+    overallReadiness = 0,
+    breakdown = [],
+    insights = [],
+    nextMilestone = "Keep learning!",
+}: Partial<ProgressMeterProps>) {
+    const safeBreakdown = Array.isArray(breakdown) ? breakdown : [];
+    const safeInsights = Array.isArray(insights) ? insights : [];
+    const safeReadiness = typeof overallReadiness === 'number' ? overallReadiness : 0;
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -92,7 +96,7 @@ export function ProgressMeter({
                             strokeDasharray={440}
                             initial={{ strokeDashoffset: 440 }}
                             animate={{
-                                strokeDashoffset: 440 - (440 * overallReadiness) / 100,
+                                strokeDashoffset: 440 - (440 * safeReadiness) / 100,
                             }}
                             transition={{ duration: 1.5, ease: "easeOut" }}
                         />
@@ -104,7 +108,7 @@ export function ProgressMeter({
                             transition={{ delay: 0.5, type: "spring" }}
                             className="text-4xl font-bold text-white font-mono"
                         >
-                            {overallReadiness}%
+                            {safeReadiness}%
                         </motion.span>
                         <span className="text-sm text-neutral-500">Ready</span>
                     </div>
@@ -113,7 +117,7 @@ export function ProgressMeter({
 
             {/* Category Breakdown */}
             <div className="space-y-3 mb-6">
-                {breakdown.map((item, index) => (
+                {safeBreakdown.map((item, index) => (
                     <motion.div
                         key={item.category}
                         initial={{ opacity: 0, x: -20 }}
@@ -157,7 +161,7 @@ export function ProgressMeter({
                     <FiZap className="w-4 h-4 text-white" />
                     Key Insights
                 </h4>
-                {insights.map((insight, index) => (
+                {safeInsights.map((insight, index) => (
                     <motion.p
                         key={index}
                         initial={{ opacity: 0 }}

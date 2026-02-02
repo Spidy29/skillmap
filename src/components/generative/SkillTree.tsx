@@ -72,12 +72,16 @@ const getRequiredIcon = (required: string) => {
 };
 
 export function SkillTree({
-  title,
-  currentRole,
-  targetRole,
-  categories,
-  overallReadiness,
-}: SkillTreeProps) {
+  title = "Skill Analysis",
+  currentRole = "Current Role",
+  targetRole = "Target Role",
+  categories = [],
+  overallReadiness = 0,
+}: Partial<SkillTreeProps>) {
+  // Ensure categories is always an array
+  const safeCategories = Array.isArray(categories) ? categories : [];
+  const safeReadiness = typeof overallReadiness === 'number' ? overallReadiness : 0;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -117,12 +121,12 @@ export function SkillTree({
                 strokeLinecap="round"
                 strokeDasharray={220}
                 initial={{ strokeDashoffset: 220 }}
-                animate={{ strokeDashoffset: 220 - (220 * overallReadiness) / 100 }}
+                animate={{ strokeDashoffset: 220 - (220 * safeReadiness) / 100 }}
                 transition={{ duration: 1, ease: "easeOut" }}
               />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-xl font-bold text-white font-mono">{overallReadiness}%</span>
+              <span className="text-xl font-bold text-white font-mono">{safeReadiness}%</span>
             </div>
           </div>
           <span className="text-xs text-neutral-500 mt-1">Ready</span>
@@ -131,7 +135,7 @@ export function SkillTree({
 
       {/* Skill Categories */}
       <div className="space-y-4">
-        {categories.map((category, catIndex) => (
+        {safeCategories.map((category, catIndex) => (
           <motion.div
             key={category.name}
             initial={{ opacity: 0, x: -20 }}
@@ -145,7 +149,7 @@ export function SkillTree({
             </h3>
 
             <div className="flex flex-wrap gap-2">
-              {category.skills.map((skill, skillIndex) => (
+              {(Array.isArray(category.skills) ? category.skills : []).map((skill, skillIndex) => (
                 <motion.div
                   key={skill.name}
                   initial={{ opacity: 0, scale: 0.8 }}

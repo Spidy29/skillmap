@@ -48,9 +48,14 @@ const getTypeConfig = (type: string) => {
     }
 };
 
-export function LearningPath({ skill, totalDuration, steps }: LearningPathProps) {
-    const completedSteps = steps.filter((s) => s.completed).length;
-    const progress = Math.round((completedSteps / steps.length) * 100);
+export function LearningPath({
+    skill = "Skill",
+    totalDuration = "4 weeks",
+    steps = []
+}: Partial<LearningPathProps>) {
+    const safeSteps = Array.isArray(steps) ? steps : [];
+    const completedSteps = safeSteps.filter((s) => s.completed).length;
+    const progress = safeSteps.length > 0 ? Math.round((completedSteps / safeSteps.length) * 100) : 0;
 
     return (
         <motion.div
@@ -91,7 +96,7 @@ export function LearningPath({ skill, totalDuration, steps }: LearningPathProps)
 
             {/* Steps */}
             <div className="space-y-4">
-                {steps.map((step, index) => {
+                {safeSteps.map((step, index) => {
                     const typeConfig = getTypeConfig(step.type);
                     return (
                         <motion.div
@@ -101,7 +106,7 @@ export function LearningPath({ skill, totalDuration, steps }: LearningPathProps)
                             transition={{ delay: index * 0.1 }}
                             className={`
                 relative pl-8 pb-4
-                ${index !== steps.length - 1 ? "border-l-2 border-neutral-800" : ""}
+                ${index !== safeSteps.length - 1 ? "border-l-2 border-neutral-800" : ""}
               `}
                         >
                             {/* Step Number/Check */}
