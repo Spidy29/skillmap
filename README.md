@@ -3,15 +3,17 @@
 
 ASCEND is an AI-powered platform that autonomously decodes your professional DNA, identifies precise skill gaps against industry benchmarks, and architects a hyper-personalized roadmap to your dream role.
 
-![ASCEND Preview](/public/logo.png)
+<img src="/logo.png" width="100" alt="ASCEND Logo" />
 
-## 💡 The Problem
-In the fast-paced tech world, career growth is often ambiguous.
-- "What should I learn next?"
-- "Am I ready for a Senior role?"
-- "How do I switch from Frontend to Full-Stack?"
+## 🏆 Built for Tambo Hackathon
+This project essentially demonstrates the power of **Tambo AI's Agentic Capabilities**.
 
-Most advice is generic. ASCEND makes it **scientific and personalized**.
+### How we use Tambo:
+1.  **Context-Aware Intelligence:** We leverage Tambo's ability to maintain deep context about the user's career history (Resume) vs. Market Requirements (Job Descriptions).
+2.  **Generative Roadmaps:** The core "Learning Path" engine is powered by Tambo, generating structural JSON curricula on the fly.
+3.  **Real-time Mentorship:** The chat interface directly interfaces with Tambo models to provide instant, specific answers to career queries ("How do I learn System Design in 2 weeks?").
+
+It's not just a wrapper – it's a **Smart Agent** that acts as your personal career architect.
 
 ## ✨ Key Features
 
@@ -24,19 +26,17 @@ See the gap. Know the path. Interactive maps visualize the exact delta between y
 ### 3. **Precision Execution ⚡**
 No fluff. Receive a curated, step-by-step curriculum with time-boxed milestones. Track your velocity and validate your skills as you ascend.
 
-### 4. **AI Mentorship 🤖**
-Chat with our context-aware AI agent to ask specific career questions, get roadmap adjustments, and receive instant feedback on your progress.
-
 ---
 
 ## 🛠️ Tech Stack
 
 - **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
 - **Language:** TypeScript
-- **Styling:** Tailwind CSS
-- **Animations:** Framer Motion
-- **Visuals:** Custom WebGL Shaders & Canvas (Particles, Beams)
-- **AI Integration:** Tambo AI / MCP (Model Context Protocol)
+- **State Management:** React Context + Hooks
+- **Styling:** Tailwind CSS (Glassmorphism & Cyber Aesthetics)
+- **Animations:** Framer Motion (Smooth Transitions)
+- **Visuals:** Custom WebGL Shaders (Ascending Beams Background)
+- **AI Core:** **Tambo AI** (Generative & Contextual Logic)
 
 ---
 
