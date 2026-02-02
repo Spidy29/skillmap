@@ -26,8 +26,8 @@ export default function Home() {
           {/* Center Nav Links */}
           <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             <NavLink href="#features">Features</NavLink>
-            <NavLink href="#prompts">Examples</NavLink>
             <NavLink href="/demo">Demo</NavLink>
+            <NavLink href="/why">Why</NavLink>
             <NavLink href="https://github.com/Spidy29/skillmap" external>GitHub</NavLink>
           </div>
 
@@ -285,12 +285,12 @@ function FeatureCard({
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative bg-neutral-900/50 border border-neutral-800 rounded-2xl p-8 hover:border-neutral-700 transition-all duration-300"
+      className="group relative bg-neutral-900/50 border border-neutral-800 rounded-2xl p-8 hover:border-neutral-700 transition-all duration-300 text-center"
     >
       <div className="absolute top-6 right-6 text-5xl font-bold text-neutral-800 font-mono">
         {step}
       </div>
-      <div className="w-14 h-14 rounded-xl bg-white text-black flex items-center justify-center mb-6 text-2xl group-hover:scale-110 transition-transform">
+      <div className="w-14 h-14 rounded-xl bg-white text-black flex items-center justify-center mb-6 text-2xl group-hover:scale-110 transition-transform mx-auto">
         {icon}
       </div>
       <h3 className="text-2xl font-semibold mb-3">{title}</h3>

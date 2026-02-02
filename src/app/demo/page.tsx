@@ -8,6 +8,10 @@ import { SkillRadar } from "@/components/generative/SkillRadar";
 import { SkillComparison } from "@/components/generative/SkillComparison";
 import { SalaryProjection } from "@/components/generative/SalaryProjection";
 import { CareerTimeline } from "@/components/generative/CareerTimeline";
+import { JobMatchCard } from "@/components/generative/JobMatchCard";
+import { InterviewPrep } from "@/components/generative/InterviewPrep";
+import { WeeklySchedule } from "@/components/generative/WeeklySchedule";
+import { SkillTrends } from "@/components/generative/SkillTrends";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { FiArrowLeft } from "react-icons/fi";
@@ -29,10 +33,10 @@ export default function DemoPage() {
                 </Link>
                 <h1 className="text-4xl font-bold mb-4">🧩 Component Demo</h1>
                 <p className="text-neutral-500">
-                    All 8 Generative UI components — AI decides which one to render based on your prompt.
+                    All 12 Generative UI components — AI decides which one to render based on your prompt.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                    {["SkillTree", "SkillGapCard", "LearningPath", "ProgressMeter", "SkillRadar", "SkillComparison", "SalaryProjection", "CareerTimeline"].map((name) => (
+                    {["SkillTree", "SkillGapCard", "LearningPath", "ProgressMeter", "SkillRadar", "SkillComparison", "SalaryProjection", "CareerTimeline", "JobMatchCard", "InterviewPrep", "WeeklySchedule", "SkillTrends"].map((name) => (
                         <span key={name} className="px-3 py-1 bg-neutral-900 border border-neutral-800 rounded-full text-xs font-mono text-neutral-400">
                             {name}
                         </span>
@@ -309,6 +313,187 @@ export default function DemoPage() {
                                 status: "upcoming",
                                 salary: "$150K+",
                             },
+                        ]}
+                    />
+                </motion.section>
+
+                {/* 9. JobMatchCard Demo - NEW */}
+                <motion.section
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                >
+                    <h2 className="text-2xl font-bold mb-2 text-white">9. JobMatchCard 💼</h2>
+                    <p className="text-neutral-500 mb-6 text-sm font-mono">
+                        💬 &quot;Find jobs matching my skills&quot;
+                    </p>
+                    <JobMatchCard
+                        jobTitle="Senior Full-Stack Developer"
+                        company="TechCorp Inc."
+                        location="Remote (US)"
+                        salary="$120K - $160K"
+                        matchScore={78}
+                        matchedSkills={["React", "TypeScript", "Node.js", "Git"]}
+                        missingSkills={["AWS", "Docker", "Kubernetes"]}
+                        highlights={["Unlimited PTO", "Stock Options", "Learning Budget"]}
+                        applyUrl="#"
+                        postedDays={3}
+                    />
+                </motion.section>
+
+                {/* 10. InterviewPrep Demo - NEW */}
+                <motion.section
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.55 }}
+                >
+                    <h2 className="text-2xl font-bold mb-2 text-white">10. InterviewPrep 🎯</h2>
+                    <p className="text-neutral-500 mb-6 text-sm font-mono">
+                        💬 &quot;How do I prepare for a Google interview?&quot;
+                    </p>
+                    <InterviewPrep
+                        targetRole="Software Engineer"
+                        company="Google"
+                        overallReadiness={55}
+                        rounds={[
+                            {
+                                name: "Coding Interview",
+                                type: "coding",
+                                readiness: 60,
+                                topics: ["Arrays", "Trees", "Dynamic Programming", "Graphs"],
+                                estimatedPrepTime: "2 weeks",
+                            },
+                            {
+                                name: "System Design",
+                                type: "system-design",
+                                readiness: 35,
+                                topics: ["Scalability", "Database Design", "Caching", "Load Balancing"],
+                                estimatedPrepTime: "3 weeks",
+                            },
+                            {
+                                name: "Behavioral",
+                                type: "behavioral",
+                                readiness: 70,
+                                topics: ["Leadership", "Conflict Resolution", "Project Examples"],
+                                estimatedPrepTime: "1 week",
+                            },
+                        ]}
+                        topQuestions={[
+                            { question: "Design a URL shortener", difficulty: "medium", frequency: "Very Common" },
+                            { question: "LRU Cache implementation", difficulty: "medium", frequency: "Common" },
+                            { question: "Design Google Drive", difficulty: "hard", frequency: "Occasional" },
+                        ]}
+                        tips={[
+                            "Think out loud during coding interviews",
+                            "Ask clarifying questions before jumping to solution",
+                            "Practice system design with real-world examples",
+                        ]}
+                    />
+                </motion.section>
+
+                {/* 11. WeeklySchedule Demo - NEW */}
+                <motion.section
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                >
+                    <h2 className="text-2xl font-bold mb-2 text-white">11. WeeklySchedule 📅</h2>
+                    <p className="text-neutral-500 mb-6 text-sm font-mono">
+                        💬 &quot;Create a weekly study plan for Docker&quot;
+                    </p>
+                    <WeeklySchedule
+                        weekNumber={1}
+                        skill="Docker"
+                        totalHours={12}
+                        weeklyGoal="Master container fundamentals"
+                        progress={40}
+                        days={[
+                            {
+                                day: "Monday",
+                                blocks: [
+                                    { time: "9:00 AM", activity: "Docker Architecture", type: "theory", duration: "1h", completed: true },
+                                    { time: "10:30 AM", activity: "Install Docker", type: "practice", duration: "30m", completed: true },
+                                ],
+                            },
+                            {
+                                day: "Tuesday",
+                                blocks: [
+                                    { time: "9:00 AM", activity: "Container Basics", type: "theory", duration: "1h", completed: true },
+                                    { time: "10:30 AM", activity: "Run First Container", type: "practice", duration: "1h", completed: false },
+                                ],
+                            },
+                            {
+                                day: "Wednesday",
+                                blocks: [
+                                    { time: "9:00 AM", activity: "Dockerfile Deep Dive", type: "theory", duration: "1h", completed: false },
+                                    { time: "10:30 AM", activity: "Build Custom Image", type: "project", duration: "2h", completed: false },
+                                ],
+                            },
+                        ]}
+                    />
+                </motion.section>
+
+                {/* 12. SkillTrends Demo - NEW */}
+                <motion.section
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.65 }}
+                >
+                    <h2 className="text-2xl font-bold mb-2 text-white">12. SkillTrends 📈</h2>
+                    <p className="text-neutral-500 mb-6 text-sm font-mono">
+                        💬 &quot;Which skills are trending in the job market?&quot;
+                    </p>
+                    <SkillTrends
+                        title="Tech Skill Trends"
+                        timeframe="Last 12 months"
+                        skills={[
+                            {
+                                name: "AI/ML",
+                                trend: "rising",
+                                growthRate: 85,
+                                currentDemand: 92,
+                                data: [
+                                    { month: "Jan", value: 45 },
+                                    { month: "Mar", value: 55 },
+                                    { month: "May", value: 65 },
+                                    { month: "Jul", value: 75 },
+                                    { month: "Sep", value: 85 },
+                                    { month: "Nov", value: 92 },
+                                ],
+                            },
+                            {
+                                name: "Kubernetes",
+                                trend: "rising",
+                                growthRate: 42,
+                                currentDemand: 78,
+                                data: [
+                                    { month: "Jan", value: 55 },
+                                    { month: "Mar", value: 60 },
+                                    { month: "May", value: 65 },
+                                    { month: "Jul", value: 70 },
+                                    { month: "Sep", value: 75 },
+                                    { month: "Nov", value: 78 },
+                                ],
+                            },
+                            {
+                                name: "React",
+                                trend: "stable",
+                                growthRate: 5,
+                                currentDemand: 85,
+                                data: [
+                                    { month: "Jan", value: 82 },
+                                    { month: "Mar", value: 83 },
+                                    { month: "May", value: 84 },
+                                    { month: "Jul", value: 85 },
+                                    { month: "Sep", value: 84 },
+                                    { month: "Nov", value: 85 },
+                                ],
+                            },
+                        ]}
+                        insights={[
+                            "AI/ML skills show the highest growth - consider prioritizing",
+                            "Kubernetes is essential for DevOps and cloud roles",
+                            "React remains stable with consistently high demand",
                         ]}
                     />
                 </motion.section>

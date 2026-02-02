@@ -22,6 +22,14 @@ import {
   salaryProjectionSchema,
   CareerTimeline,
   careerTimelineSchema,
+  JobMatchCard,
+  jobMatchCardSchema,
+  InterviewPrep,
+  interviewPrepSchema,
+  WeeklySchedule,
+  weeklyScheduleSchema,
+  SkillTrends,
+  skillTrendsSchema,
 } from "@/components/generative";
 import type { TamboComponent, TamboTool } from "@tambo-ai/react";
 import { z } from "zod";
@@ -189,5 +197,29 @@ export const components: TamboComponent[] = [
     description: "A visual timeline showing career progression milestones with skills to acquire at each stage. Use this to show a step-by-step career roadmap with expected timelines and salary.",
     component: CareerTimeline,
     propsSchema: careerTimelineSchema,
+  },
+  {
+    name: "JobMatchCard",
+    description: "A job listing card showing match percentage, skills the user has vs missing skills, salary, location, and apply button. Use this when showing job opportunities or job search results.",
+    component: JobMatchCard,
+    propsSchema: jobMatchCardSchema,
+  },
+  {
+    name: "InterviewPrep",
+    description: "A complete interview preparation dashboard showing rounds, topics to study, top questions, readiness percentage, and pro tips. Use this when user asks about interview prep or how to prepare for interviews.",
+    component: InterviewPrep,
+    propsSchema: interviewPrepSchema,
+  },
+  {
+    name: "WeeklySchedule",
+    description: "A weekly learning schedule with time blocks, activities (theory/practice/project), and progress tracking. Use this when user asks for a study plan or wants to organize learning time.",
+    component: WeeklySchedule,
+    propsSchema: weeklyScheduleSchema,
+  },
+  {
+    name: "SkillTrends",
+    description: "A line chart showing market demand trends for different skills over time with growth rates and market insights. Use this when discussing which skills are trending or in demand.",
+    component: SkillTrends,
+    propsSchema: skillTrendsSchema,
   },
 ];
