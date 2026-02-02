@@ -1,131 +1,73 @@
-# Tambo Template
+# 🚀 ASCEND
+> **The Intelligence Layer for Your Career Growth**
 
-This is a starter NextJS app with Tambo hooked up to get your AI app development started quickly.
+ASCEND is an AI-powered platform that autonomously decodes your professional DNA, identifies precise skill gaps against industry benchmarks, and architects a hyper-personalized roadmap to your dream role.
 
-## Get Started
+![ASCEND Preview](/public/logo.png)
 
-1. Run `npm create-tambo@latest my-tambo-app` for a new project
+## 💡 The Problem
+In the fast-paced tech world, career growth is often ambiguous.
+- "What should I learn next?"
+- "Am I ready for a Senior role?"
+- "How do I switch from Frontend to Full-Stack?"
 
-2. `npm install`
+Most advice is generic. ASCEND makes it **scientific and personalized**.
 
-3. `npx tambo init`
+## ✨ Key Features
 
-- or rename `example.env.local` to `.env.local` and add your tambo API key you can get for free [here](https://tambo.co/dashboard).
+### 1. **Deep Analysis 🧠**
+Drop your resume or describe your background. Our engine constructs a comprehensive skills graph and benchmarks you against the top 1% of your target field.
 
-4. Run `npm run dev` and go to `localhost:3000` to use the app!
+### 2. **Strategic Visualization 🗺️**
+See the gap. Know the path. Interactive maps visualize the exact delta between your current capabilities and your goal, identifying high-leverage skills with the highest ROI.
 
-## Customizing
+### 3. **Precision Execution ⚡**
+No fluff. Receive a curated, step-by-step curriculum with time-boxed milestones. Track your velocity and validate your skills as you ascend.
 
-### Change what components tambo can control
+### 4. **AI Mentorship 🤖**
+Chat with our context-aware AI agent to ask specific career questions, get roadmap adjustments, and receive instant feedback on your progress.
 
-You can see how components are registered with tambo in `src/lib/tambo.ts`:
+---
 
-```tsx
-export const components: TamboComponent[] = [
-  {
-    name: "Graph",
-    description:
-      "A component that renders various types of charts (bar, line, pie) using Recharts. Supports customizable data visualization with labels, datasets, and styling options.",
-    component: Graph,
-    propsSchema: graphSchema,
-  },
-  // Add more components here
-];
-```
+## 🛠️ Tech Stack
 
-You can install the graph component into any project with:
+- **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Animations:** Framer Motion
+- **Visuals:** Custom WebGL Shaders & Canvas (Particles, Beams)
+- **AI Integration:** Tambo AI / MCP (Model Context Protocol)
 
-```bash
-npx tambo add graph
-```
+---
 
-The example Graph component demonstrates several key features:
+## 🚀 Getting Started
 
-- Different prop types (strings, arrays, enums, nested objects)
-- Multiple chart types (bar, line, pie)
-- Customizable styling (variants, sizes)
-- Optional configurations (title, legend, colors)
-- Data visualization capabilities
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/yourusername/ascend-skillmap.git
+    cd ascend-skillmap
+    ```
 
-Update the `components` array with any component(s) you want tambo to be able to use in a response!
+2.  **Install dependencies**
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
 
-You can find more information about the options [here](https://docs.tambo.co/concepts/generative-interfaces/generative-components)
+3.  **Run the development server**
+    ```bash
+    npm run dev
+    ```
 
-### Add tools for tambo to use
+4.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Tools are defined with `inputSchema` and `outputSchema`:
+---
 
-```tsx
-export const tools: TamboTool[] = [
-  {
-    name: "globalPopulation",
-    description:
-      "A tool to get global population trends with optional year range filtering",
-    tool: getGlobalPopulationTrend,
-    inputSchema: z.object({
-      startYear: z.number().optional(),
-      endYear: z.number().optional(),
-    }),
-    outputSchema: z.array(
-      z.object({
-        year: z.number(),
-        population: z.number(),
-        growthRate: z.number(),
-      }),
-    ),
-  },
-];
-```
+## ❤️ Crafted By
 
-Find more information about tools [here.](https://docs.tambo.co/concepts/tools)
+**Arjun Sharma**
+- [Portfolio](https://heyarjun.me)
+- [GitHub](https://github.com/Start-sys)
 
-### The Magic of Tambo Requires the TamboProvider
-
-Make sure in the TamboProvider wrapped around your app:
-
-```tsx
-...
-<TamboProvider
-  apiKey={process.env.NEXT_PUBLIC_TAMBO_API_KEY!}
-  components={components} // Array of components to control
-  tools={tools} // Array of tools it can use
->
-  {children}
-</TamboProvider>
-```
-
-In this example we do this in the `Layout.tsx` file, but you can do it anywhere in your app that is a client component.
-
-### Voice input
-
-The template includes a `DictationButton` component using the `useTamboVoice` hook for speech-to-text input.
-
-### MCP (Model Context Protocol)
-
-The template includes MCP support for connecting to external tools and resources. You can use the MCP hooks from `@tambo-ai/react/mcp`:
-
-- `useTamboMcpPromptList` - List available prompts from MCP servers
-- `useTamboMcpPrompt` - Get a specific prompt
-- `useTamboMcpResourceList` - List available resources
-
-See `src/components/tambo/mcp-components.tsx` for example usage.
-
-### Change where component responses are shown
-
-The components used by tambo are shown alongside the message response from tambo within the chat thread, but you can have the result components show wherever you like by accessing the latest thread message's `renderedComponent` field:
-
-```tsx
-const { thread } = useTambo();
-const latestComponent =
-  thread?.messages[thread.messages.length - 1]?.renderedComponent;
-
-return (
-  <div>
-    {latestComponent && (
-      <div className="my-custom-wrapper">{latestComponent}</div>
-    )}
-  </div>
-);
-```
-
-For more detailed documentation, visit [Tambo's official docs](https://docs.tambo.co).
+*Built for The UI Strikes Back Hackathon 2026*
