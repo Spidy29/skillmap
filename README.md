@@ -6,14 +6,14 @@ ASCEND is an AI-powered platform that autonomously decodes your professional DNA
 <img src="/logo.png" width="100" alt="ASCEND Logo" />
 
 ## 🏆 Built for Tambo Hackathon
-This project showcases the potential of the **Tambo Ecosystem**.
+This project essentially demonstrates the power of **Tambo AI's Agentic Capabilities**.
 
-### Integration with Tambo:
-1.  **Seamless Connectivity:** ASCEND integrates directly with Tambo to process user data.
-2.  **Smart Context:** We use Tambo to bridge the gap between static resumes and dynamic market needs.
-3.  **Next-Gen Mentorship:** The platform relies on Tambo's infrastructure to deliver real-time career guidance.
+### How we use Tambo:
+1.  **Context-Aware Intelligence:** We leverage Tambo's ability to maintain deep context about the user's career history (Resume) vs. Market Requirements (Job Descriptions).
+2.  **Generative Roadmaps:** The core "Learning Path" engine is powered by Tambo, generating structural JSON curricula on the fly.
+3.  **Real-time Mentorship:** The chat interface directly interfaces with Tambo models to provide instant, specific answers to career queries ("How do I learn System Design in 2 weeks?").
 
-It's not just a wrapper – it's a **Career Architect** powered by Tambo.
+It's not just a wrapper – it's a **Smart Agent** that acts as your personal career architect.
 
 ## ✨ Key Features
 
