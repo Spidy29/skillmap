@@ -23,6 +23,7 @@ import {
   ThreadContent,
   ThreadContentMessages,
 } from "@/components/tambo/thread-content";
+import { ResumeUploader } from "@/components/chat/ResumeUploader";
 import {
   ThreadHistory,
   ThreadHistoryHeader,
@@ -135,6 +136,25 @@ export const MessageThreadFull = React.forwardRef<
           <MessageInput>
             <MessageInputTextarea placeholder="Ask about your career, skills, or learning path..." />
             <MessageInputToolbar>
+              <ResumeUploader onTextExtracted={(text, filename) => {
+                const prompt = `Here is my resume content from ${filename}:\n\n${text}\n\nBased on this resume, please create a detailed Skill Tree analysis of my proficient skills.`;
+                // We need to inject this into the input. The cleanest way is to dispatch a custom event or use the context if accessible.
+                // Since this component doesn't have direct access to the input context here, we can use a workaround or move this inside MessageInput.
+                // However, MessageInputTextarea is where the state lives.
+
+                // Let's try appending to the textarea if possible, or just alerting the user to paste it.
+                // Better approach: The ResumeUploader should probably be INSIDE MessageInputToolbar to access context? 
+                // No, context usage is restricted. 
+
+                // Workaround: We will use a global event or simply locate the textarea and update it.
+                const textarea = document.querySelector('textarea[data-slot="message-input-textarea"]') as HTMLTextAreaElement;
+                if (textarea) {
+                  const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value")?.set;
+                  nativeInputValueSetter?.call(textarea, prompt);
+                  textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                  textarea.focus();
+                }
+              }} />
               <MessageInputFileButton />
               <MessageInputMcpPromptButton />
               <MessageInputMcpResourceButton />
