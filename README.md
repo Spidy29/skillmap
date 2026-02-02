@@ -5,15 +5,106 @@ ASCEND is an AI-powered platform that autonomously decodes your professional DNA
 
 <img src="/logo.png" width="100" alt="ASCEND Logo" />
 
-## 🏆 Built for Tambo Hackathon
-This project essentially demonstrates the power of **Tambo AI's Agentic Capabilities**.
+---
 
-### How we use Tambo:
-1.  **Context-Aware Intelligence:** We leverage Tambo's ability to maintain deep context about the user's career history (Resume) vs. Market Requirements (Job Descriptions).
-2.  **Generative Roadmaps:** The core "Learning Path" engine is powered by Tambo, generating structural JSON curricula on the fly.
-3.  **Real-time Mentorship:** The chat interface directly interfaces with Tambo models to provide instant, specific answers to career queries ("How do I learn System Design in 2 weeks?").
+## 🏆 Built for Tambo Hackathon - "The UI Strikes Back"
+This project demonstrates the power of **Tambo AI's Generative UI** capabilities.
 
-It's not just a wrapper – it's a **Smart Agent** that acts as your personal career architect.
+### 📋 Tambo Integration Checklist
+
+| Feature | Status | Location |
+|---------|--------|----------|
+| TamboProvider | ✅ Done | `src/app/chat/page.tsx` |
+| Generative Components | ✅ 4 Components | `src/components/generative/` |
+| Local Tools | ✅ 3 Tools | `src/lib/tambo.ts` |
+| MCP Support | ✅ Configured | `src/components/tambo/mcp-config-modal.tsx` |
+| UI Kit | ✅ Full | `src/components/tambo/` |
+
+---
+
+## 🧩 Tambo Components (Generative UI)
+
+These components are registered with Tambo and AI decides when to render them:
+
+### 1. `SkillTree` — Skills Overview
+**File:** `src/components/generative/SkillTree.tsx`
+- Shows all user skills organized by category
+- Displays skill levels and importance for target role
+- Visual skill landscape overview
+
+### 2. `SkillGapCard` — Single Skill Gap Focus
+**File:** `src/components/generative/SkillGapCard.tsx`
+- Highlights a specific missing/weak skill
+- Shows priority level and time estimate
+- Includes learning resources
+
+### 3. `LearningPath` — Step-by-Step Roadmap
+**File:** `src/components/generative/LearningPath.tsx`
+- Learning roadmap for a specific skill
+- Types: Theory → Practice → Project → Assessment
+- Progress tracking with completion status
+
+### 4. `ProgressMeter` — Career Readiness
+**File:** `src/components/generative/ProgressMeter.tsx`
+- Overall career readiness visualization
+- Category breakdowns and trends
+- Next milestone tracking
+
+---
+
+## 🔧 Tambo Local Tools
+
+These run in the browser and are available to the AI:
+
+### 1. `analyzeResume`
+**Purpose:** Analyzes resume text to extract skills, experience level
+**Input:** `resumeText` (string)
+**Output:** `extractedSkills`, `yearsOfExperience`, `currentLevel`
+
+### 2. `getJobRequirements`
+**Purpose:** Gets required skills for a target job role
+**Input:** `targetRole` (string), `location` (optional)
+**Output:** `role`, `requiredSkills`, `averageSalary`, `demandLevel`
+
+### 3. `getLearningResources`
+**Purpose:** Gets learning resources for a specific skill
+**Input:** `skill` (string), `level` (beginner/intermediate/advanced)
+**Output:** `skill`, `resources[]`, `estimatedTime`
+
+---
+
+## 📁 Project Structure
+
+```
+skillmap/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx          # Landing page
+│   │   ├── chat/
+│   │   │   └── page.tsx      # 🎯 Main chat with TamboProvider
+│   │   └── interactables/
+│   │       └── page.tsx      # Interactable components demo
+│   ├── components/
+│   │   ├── generative/       # 🎯 Tambo Generative Components
+│   │   │   ├── SkillTree.tsx
+│   │   │   ├── SkillGapCard.tsx
+│   │   │   ├── LearningPath.tsx
+│   │   │   ├── ProgressMeter.tsx
+│   │   │   └── index.ts
+│   │   ├── tambo/            # 🎯 Tambo UI Kit
+│   │   │   ├── message-thread-full.tsx
+│   │   │   ├── message-input.tsx
+│   │   │   ├── thread-history.tsx
+│   │   │   ├── mcp-config-modal.tsx
+│   │   │   └── ...
+│   │   └── ui/               # Custom UI components
+│   └── lib/
+│       └── tambo.ts          # 🎯 Tools & Components Registration
+├── .env.local                # NEXT_PUBLIC_TAMBO_API_KEY
+└── package.json
+```
+
+---
 
 ## ✨ Key Features
 
@@ -32,11 +123,10 @@ No fluff. Receive a curated, step-by-step curriculum with time-boxed milestones.
 
 - **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
 - **Language:** TypeScript
-- **State Management:** React Context + Hooks
-- **Styling:** Tailwind CSS (Glassmorphism & Cyber Aesthetics)
-- **Animations:** Framer Motion (Smooth Transitions)
-- **Visuals:** Custom WebGL Shaders (Ascending Beams Background)
-- **AI Core:** **Tambo AI** (Generative & Contextual Logic)
+- **AI Core:** **Tambo AI** `@tambo-ai/react@0.70.0`
+- **Styling:** Tailwind CSS v4
+- **Animations:** Framer Motion
+- **Schema Validation:** Zod
 
 ---
 
@@ -51,16 +141,65 @@ No fluff. Receive a curated, step-by-step curriculum with time-boxed milestones.
 2.  **Install dependencies**
     ```bash
     npm install
-    # or
-    yarn install
     ```
 
-3.  **Run the development server**
+3.  **Add Tambo API Key**
+    ```bash
+    # Create .env.local file
+    NEXT_PUBLIC_TAMBO_API_KEY=your_tambo_api_key_here
+    ```
+
+4.  **Run the development server**
     ```bash
     npm run dev
     ```
 
-4.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5.  Open [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🧪 Testing Prompts for Demo
+
+Try these prompts in the chat to see Tambo in action:
+
+```
+1. "I'm a React developer with 2 years experience. I want to become an SDE-2"
+   → Triggers: analyzeResume + SkillTree or SkillGapCard
+
+2. "Show me my skill gaps for a Full-Stack Developer role"
+   → Triggers: getJobRequirements + SkillGapCard
+
+3. "Create a learning path for Docker"
+   → Triggers: getLearningResources + LearningPath
+
+4. "How ready am I for a DevOps Engineer position?"
+   → Triggers: ProgressMeter
+
+5. "Analyze my background: I know JavaScript, HTML, CSS, Git"
+   → Triggers: SkillTree with current skills
+```
+
+---
+
+## 🎯 Hackathon Judging Criteria
+
+| Criteria | How ASCEND Addresses It |
+|----------|------------------------|
+| **Best Use Case of Tambo** | Generative UI for career coaching - AI decides components |
+| **Technical Implementation** | 4 components, 3 tools, full Tambo SDK integration |
+| **Creativity & Originality** | Unique skill gap visualization + personalized paths |
+| **Aesthetics & UX** | Premium dark theme, smooth animations, intuitive chat |
+| **Potential Impact** | Solves real problem - career growth navigation |
+
+---
+
+## 📹 Demo Recording
+
+> ⚠️ **TODO:** Record a demo video showing:
+> - Landing page
+> - Chat interaction with AI
+> - AI rendering components dynamically
+> - Tool calls in action
 
 ---
 
@@ -71,3 +210,11 @@ No fluff. Receive a curated, step-by-step curriculum with time-boxed milestones.
 - [GitHub](https://github.com/Start-sys)
 
 *Built for The UI Strikes Back Hackathon 2026*
+
+---
+
+## 📚 Tambo Resources
+
+- [Tambo Docs](https://docs.tambo.ai)
+- [Tambo GitHub](https://github.com/tambo-ai/tambo)
+- [Quickstart Guide](https://docs.tambo.ai/quickstart)
