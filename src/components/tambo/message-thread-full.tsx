@@ -70,21 +70,27 @@ export const MessageThreadFull = React.forwardRef<
   const defaultSuggestions: Suggestion[] = [
     {
       id: "suggestion-1",
-      title: "Get started",
-      detailedSuggestion: "What can you help me with?",
-      messageId: "welcome-query",
+      title: "🎯 Analyze my skills",
+      detailedSuggestion: "I'm a React developer. Show me what skills I need for Full-Stack.",
+      messageId: "skills-query",
     },
     {
       id: "suggestion-2",
-      title: "Learn more",
-      detailedSuggestion: "Tell me about your capabilities.",
-      messageId: "capabilities-query",
+      title: "📊 Career roadmap",
+      detailedSuggestion: "Create a path for me to become a Tech Lead in 2 years.",
+      messageId: "roadmap-query",
     },
     {
       id: "suggestion-3",
-      title: "Examples",
-      detailedSuggestion: "Show me some example queries I can try.",
-      messageId: "examples-query",
+      title: "💼 Job matching",
+      detailedSuggestion: "Find jobs that match my current skills.",
+      messageId: "jobs-query",
+    },
+    {
+      id: "suggestion-4",
+      title: "🎤 Interview prep",
+      detailedSuggestion: "How do I prepare for a Google interview?",
+      messageId: "interview-query",
     },
   ];
 
@@ -100,6 +106,20 @@ export const MessageThreadFull = React.forwardRef<
         {...props}
       >
         <ScrollableMessageContainer className="p-4">
+          {/* Welcome Greeting */}
+          <div className="flex flex-col items-center justify-center min-h-[40vh] text-center px-4">
+            <div className="text-6xl mb-4">🚀</div>
+            <h1 className="text-3xl font-bold text-white mb-2">Welcome to ASCEND</h1>
+            <p className="text-neutral-400 text-lg max-w-md mb-6">
+              Your AI Career Intelligence Coach. Ask me anything about skills, career paths, or job preparation.
+            </p>
+            <div className="flex flex-wrap gap-2 justify-center text-xs text-neutral-500">
+              <span className="px-3 py-1 bg-neutral-800 rounded-full">Skill Analysis</span>
+              <span className="px-3 py-1 bg-neutral-800 rounded-full">Career Roadmaps</span>
+              <span className="px-3 py-1 bg-neutral-800 rounded-full">Interview Prep</span>
+              <span className="px-3 py-1 bg-neutral-800 rounded-full">Job Matching</span>
+            </div>
+          </div>
           <ThreadContent variant={variant}>
             <ThreadContentMessages />
           </ThreadContent>
@@ -113,7 +133,7 @@ export const MessageThreadFull = React.forwardRef<
         {/* Message input */}
         <div className="px-4 pb-4">
           <MessageInput>
-            <MessageInputTextarea placeholder="Type your message or paste images..." />
+            <MessageInputTextarea placeholder="Ask about your career, skills, or learning path..." />
             <MessageInputToolbar>
               <MessageInputFileButton />
               <MessageInputMcpPromptButton />
