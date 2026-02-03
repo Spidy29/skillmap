@@ -14,6 +14,11 @@ export async function GET(
     const finalUrl = `${TAMBO_API_URL}/${pathString}${queryString}`;
 
     try {
+        // Debug logging
+        console.log("[Proxy] GET Request to:", finalUrl);
+        console.log("[Proxy] API Key Present:", !!TAMBO_API_KEY);
+        console.log("[Proxy] API Key (first 10 chars):", TAMBO_API_KEY?.substring(0, 10) + "...");
+
         const response = await fetch(finalUrl, {
             method: "GET",
             headers: {
@@ -21,6 +26,8 @@ export async function GET(
                 "Content-Type": "application/json",
             },
         });
+
+        console.log("[Proxy] Response Status:", response.status);
 
         // Check if streaming response
         const contentType = response.headers.get("content-type") || "";
