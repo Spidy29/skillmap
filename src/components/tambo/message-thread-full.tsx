@@ -109,16 +109,22 @@ export const MessageThreadFull = React.forwardRef<
         <ScrollableMessageContainer className="p-4">
           {/* Welcome Greeting */}
           <div className="flex flex-col items-center justify-center min-h-[40vh] text-center px-4">
-            <div className="text-6xl mb-4">🚀</div>
-            <h1 className="text-3xl font-bold text-white mb-2">Welcome to ASCEND</h1>
-            <p className="text-neutral-400 text-lg max-w-md mb-6">
-              Your AI Career Intelligence Coach. Ask me anything about skills, career paths, or job preparation.
+            {/* Minimalist Icon - Gradient circle with pulse */}
+            <div className="relative mb-6">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20" />
+              </div>
+              <div className="absolute inset-0 w-16 h-16 rounded-full bg-white/5 animate-ping" style={{ animationDuration: '3s' }} />
+            </div>
+            <h1 className="text-2xl font-semibold text-white mb-2 tracking-tight">Welcome to ASCEND</h1>
+            <p className="text-neutral-500 text-sm max-w-sm mb-6">
+              Your AI Career Intelligence Coach
             </p>
-            <div className="flex flex-wrap gap-2 justify-center text-xs text-neutral-500">
-              <span className="px-3 py-1 bg-neutral-800 rounded-full">Skill Analysis</span>
-              <span className="px-3 py-1 bg-neutral-800 rounded-full">Career Roadmaps</span>
-              <span className="px-3 py-1 bg-neutral-800 rounded-full">Interview Prep</span>
-              <span className="px-3 py-1 bg-neutral-800 rounded-full">Job Matching</span>
+            <div className="flex flex-wrap gap-2 justify-center text-[10px] text-neutral-600 font-mono">
+              <span className="px-2.5 py-1 bg-white/5 border border-white/5 rounded-full">Skills</span>
+              <span className="px-2.5 py-1 bg-white/5 border border-white/5 rounded-full">Roadmaps</span>
+              <span className="px-2.5 py-1 bg-white/5 border border-white/5 rounded-full">Interview</span>
+              <span className="px-2.5 py-1 bg-white/5 border border-white/5 rounded-full">Jobs</span>
             </div>
           </div>
           <ThreadContent variant={variant}>

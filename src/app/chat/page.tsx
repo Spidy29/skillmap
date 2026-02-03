@@ -65,10 +65,7 @@ export default function AscendChat() {
             <div className="flex items-center gap-4">
               <FeatureBadge icon={<FiZap className="w-3.5 h-3.5" />} label="Generative UI" />
               <div className="h-8 w-px bg-white/10 hidden sm:block" />
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
-                <span className="text-xs font-mono text-neutral-400">Online</span>
-              </div>
+              <QuestWidget />
             </div>
           </div>
         </nav>
@@ -85,7 +82,6 @@ export default function AscendChat() {
               <MessageThreadFull />
             </motion.div>
           </div>
-          <QuestWidget />
         </main>
 
         {/* Footer - minimal */}
