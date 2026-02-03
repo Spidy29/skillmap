@@ -17,19 +17,13 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle";
  */
 export default function AscendChat() {
   const mcpServers = useMcpServers();
-  // Ensure we provide a full URL to the SDK to avoid "Invalid URL" errors
-  const tamboUrl = typeof window !== "undefined"
-    ? `${window.location.origin}/api/tambo`
-    : "";
-
-  if (!tamboUrl) return null; // Avoid hydration mismatch or SSR issues
 
   return (
     <TamboProvider
-      apiKey="secure-backend-mode"
+      apiKey={process.env.NEXT_PUBLIC_TAMBO_API_KEY!}
       components={components}
       tools={tools}
-      tamboUrl={tamboUrl}
+      tamboUrl={process.env.NEXT_PUBLIC_TAMBO_URL}
       mcpServers={mcpServers}
     >
       <div className="min-h-screen text-foreground font-sans flex flex-col overflow-hidden bg-background transition-colors duration-300">
