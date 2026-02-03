@@ -34,7 +34,7 @@ export default function AscendChat() {
         <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
           <div className="w-full px-4 h-20 flex items-center justify-between">
             {/* Left: Back + Logo */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 h-full">
               <Link
                 href="/"
                 className="p-2 rounded-full bg-muted/50 border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
@@ -81,35 +81,17 @@ export default function AscendChat() {
           </div>
         </nav>
 
-        {/* Main Chat Container */}
-        <main className="flex-1 pt-20 relative z-10 w-full">
-          <div className="h-[calc(100vh-5rem)] w-full">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="h-full bg-card/40 backdrop-blur-xl border-x border-border"
-            >
-              <MessageThreadFull />
-            </motion.div>
-          </div>
+        {/* Main Chat Container - Fixed height, no page scroll */}
+        <main className="fixed top-20 left-0 right-0 bottom-0 z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="h-full w-full"
+          >
+            <MessageThreadFull />
+          </motion.div>
         </main>
-
-        {/* Footer */}
-        <footer className="relative z-10 py-4 border-t border-border text-center bg-background/80 backdrop-blur-sm">
-          <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
-            <span className="font-mono">Powered by Tambo AI</span>
-            <span className="w-1 h-1 rounded-full bg-border"></span>
-            <a
-              href="https://heyarjun.me"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              by Arjun Sharma
-            </a>
-          </div>
-        </footer>
       </div>
     </TamboProvider>
   );

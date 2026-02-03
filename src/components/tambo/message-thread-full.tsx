@@ -107,24 +107,30 @@ export const MessageThreadFull = React.forwardRef<
         {...props}
       >
         <ScrollableMessageContainer className="p-4">
-          {/* Welcome Greeting */}
-          <div className="flex flex-col items-center justify-center min-h-[40vh] text-center px-4">
-            {/* Minimalist Icon - Gradient circle with pulse */}
-            <div className="relative mb-8">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-foreground/20 to-foreground/5 border border-border flex items-center justify-center">
-                <div className="w-10 h-10 rounded-full bg-foreground/10 border border-border" />
-              </div>
-              <div className="absolute inset-0 w-20 h-20 rounded-full bg-foreground/5 animate-ping" style={{ animationDuration: '3s' }} />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-tight">Welcome to ASCEND</h1>
-            <p className="text-muted-foreground text-lg max-w-lg mb-8">
-              Your AI Career Intelligence Coach
+          {/* Welcome Greeting - Minimalist B&W */}
+          <div className="flex flex-col items-center justify-center text-center px-6 py-8">
+            {/* Clean Title */}
+
+            {/* Clean Title */}
+            <h1 className="text-6xl md:text-8xl font-black text-foreground/10 tracking-tighter mb-2">
+              ASCEND
+            </h1>
+
+            {/* Subtle Subtitle */}
+            <p className="text-sm md:text-base font-medium text-foreground/40 mb-8 tracking-widest uppercase">
+              Career Intelligence
             </p>
-            <div className="flex flex-wrap gap-3 justify-center text-xs text-muted-foreground font-mono">
-              <span className="px-4 py-1.5 bg-muted/50 border border-border rounded-full hover:bg-muted/80 transition-colors">Skills</span>
-              <span className="px-4 py-1.5 bg-muted/50 border border-border rounded-full hover:bg-muted/80 transition-colors">Roadmaps</span>
-              <span className="px-4 py-1.5 bg-muted/50 border border-border rounded-full hover:bg-muted/80 transition-colors">Interview</span>
-              <span className="px-4 py-1.5 bg-muted/50 border border-border rounded-full hover:bg-muted/80 transition-colors">Jobs</span>
+
+            {/* Faded Tags using simple text, no borders */}
+            <div className="flex flex-wrap gap-6 justify-center">
+              {["Skills", "Roadmaps", "Interview", "Jobs"].map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs font-medium text-foreground/30 hover:text-foreground/60 transition-colors cursor-pointer"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
           <ThreadContent variant={variant}>
@@ -184,3 +190,16 @@ export const MessageThreadFull = React.forwardRef<
   );
 });
 MessageThreadFull.displayName = "MessageThreadFull";
+
+/**
+ * Premium feature card for welcome section
+ */
+function FeatureCard({ emoji, title, description }: { emoji: string; title: string; description: string }) {
+  return (
+    <div className="group p-4 rounded-xl bg-card/50 border border-border hover:border-foreground/20 hover:bg-card/80 transition-all duration-300 cursor-default">
+      <div className="text-2xl mb-2">{emoji}</div>
+      <h3 className="font-semibold text-foreground mb-1">{title}</h3>
+      <p className="text-xs text-muted-foreground">{description}</p>
+    </div>
+  );
+}
