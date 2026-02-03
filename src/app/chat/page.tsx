@@ -20,10 +20,10 @@ export default function AscendChat() {
 
   return (
     <TamboProvider
-      apiKey=""
+      apiKey={process.env.NEXT_PUBLIC_TAMBO_API_KEY!}
       components={components}
       tools={tools}
-      tamboUrl={typeof window !== "undefined" ? `${window.location.origin}/api/tambo` : "/api/tambo"}
+      tamboUrl={process.env.NEXT_PUBLIC_TAMBO_URL}
       mcpServers={mcpServers}
     >
       <div className="min-h-screen text-foreground font-sans flex flex-col overflow-hidden bg-background transition-colors duration-300">

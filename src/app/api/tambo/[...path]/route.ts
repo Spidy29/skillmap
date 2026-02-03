@@ -22,6 +22,19 @@ export async function GET(
             },
         });
 
+        // Check if streaming response
+        const contentType = response.headers.get("content-type") || "";
+        if (contentType.includes("text/event-stream") || contentType.includes("stream")) {
+            return new Response(response.body, {
+                status: response.status,
+                headers: {
+                    "Content-Type": contentType,
+                    "Cache-Control": "no-cache",
+                    "Connection": "keep-alive",
+                },
+            });
+        }
+
         const data = await response.json();
         return NextResponse.json(data, { status: response.status });
     } catch (error) {
@@ -40,6 +53,9 @@ export async function POST(
     const queryString = url.search;
     const finalUrl = `${TAMBO_API_URL}/${pathString}${queryString}`;
 
+    // Check if this is a streaming endpoint
+    const isStreamEndpoint = pathString.includes("stream");
+
     try {
         const body = await request.json();
         const response = await fetch(finalUrl, {
@@ -50,6 +66,19 @@ export async function POST(
             },
             body: JSON.stringify(body),
         });
+
+        // Handle streaming response
+        const contentType = response.headers.get("content-type") || "";
+        if (isStreamEndpoint || contentType.includes("text/event-stream") || contentType.includes("stream")) {
+            return new Response(response.body, {
+                status: response.status,
+                headers: {
+                    "Content-Type": contentType || "text/event-stream",
+                    "Cache-Control": "no-cache",
+                    "Connection": "keep-alive",
+                },
+            });
+        }
 
         const data = await response.json();
         return NextResponse.json(data, { status: response.status });
