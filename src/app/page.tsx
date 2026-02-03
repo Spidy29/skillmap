@@ -15,12 +15,21 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo Section */}
           <Link href="/" className="relative h-full flex items-center w-48">
+            {/* Dark Mode Logo - White text */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo-horizontal.png"
               alt="ASCEND"
-              className="absolute left-0 h-[300%] w-auto object-contain top-1/2 -translate-y-1/2 pointer-events-none dark:invert-0 invert"
+              className="absolute left-0 h-[300%] w-auto object-contain top-1/2 -translate-y-1/2 pointer-events-none hidden dark:block"
               style={{ filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.5))" }}
+            />
+            {/* Light Mode Logo - Black text */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-horizontal-light.png"
+              alt="ASCEND"
+              className="absolute left-0 h-[300%] w-auto object-contain top-1/2 -translate-y-1/2 pointer-events-none block dark:hidden"
+              style={{ filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.1))" }}
             />
           </Link>
 

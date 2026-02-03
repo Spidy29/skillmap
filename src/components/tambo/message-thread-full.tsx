@@ -110,21 +110,21 @@ export const MessageThreadFull = React.forwardRef<
           {/* Welcome Greeting */}
           <div className="flex flex-col items-center justify-center min-h-[40vh] text-center px-4">
             {/* Minimalist Icon - Gradient circle with pulse */}
-            <div className="relative mb-6">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-foreground/20 to-foreground/5 border border-border flex items-center justify-center">
-                <div className="w-8 h-8 rounded-full bg-foreground/10 border border-border" />
+            <div className="relative mb-8">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-foreground/20 to-foreground/5 border border-border flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-foreground/10 border border-border" />
               </div>
-              <div className="absolute inset-0 w-16 h-16 rounded-full bg-foreground/5 animate-ping" style={{ animationDuration: '3s' }} />
+              <div className="absolute inset-0 w-20 h-20 rounded-full bg-foreground/5 animate-ping" style={{ animationDuration: '3s' }} />
             </div>
-            <h1 className="text-2xl font-semibold text-foreground mb-2 tracking-tight">Welcome to ASCEND</h1>
-            <p className="text-muted-foreground text-sm max-w-sm mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-tight">Welcome to ASCEND</h1>
+            <p className="text-muted-foreground text-lg max-w-lg mb-8">
               Your AI Career Intelligence Coach
             </p>
-            <div className="flex flex-wrap gap-2 justify-center text-[10px] text-muted-foreground font-mono">
-              <span className="px-2.5 py-1 bg-muted/50 border border-border rounded-full">Skills</span>
-              <span className="px-2.5 py-1 bg-muted/50 border border-border rounded-full">Roadmaps</span>
-              <span className="px-2.5 py-1 bg-muted/50 border border-border rounded-full">Interview</span>
-              <span className="px-2.5 py-1 bg-muted/50 border border-border rounded-full">Jobs</span>
+            <div className="flex flex-wrap gap-3 justify-center text-xs text-muted-foreground font-mono">
+              <span className="px-4 py-1.5 bg-muted/50 border border-border rounded-full hover:bg-muted/80 transition-colors">Skills</span>
+              <span className="px-4 py-1.5 bg-muted/50 border border-border rounded-full hover:bg-muted/80 transition-colors">Roadmaps</span>
+              <span className="px-4 py-1.5 bg-muted/50 border border-border rounded-full hover:bg-muted/80 transition-colors">Interview</span>
+              <span className="px-4 py-1.5 bg-muted/50 border border-border rounded-full hover:bg-muted/80 transition-colors">Jobs</span>
             </div>
           </div>
           <ThreadContent variant={variant}>
@@ -140,7 +140,7 @@ export const MessageThreadFull = React.forwardRef<
         {/* Message input */}
         <div className="px-4 pb-4">
           <MessageInput>
-            <MessageInputTextarea placeholder="Ask about your career, skills, or learning path..." />
+            <MessageInputTextarea placeholder="Type a message to start your career journey..." />
             <MessageInputToolbar>
               <ResumeUploader onTextExtracted={(text, filename) => {
                 const prompt = `Here is my resume content from ${filename}:\n\n${text}\n\nBased on this resume, please create a detailed Skill Tree analysis of my proficient skills.`;

@@ -30,8 +30,9 @@ export default function AscendChat() {
         <BeamsBackground />
 
         {/* Navbar */}
+        {/* Navbar */}
         <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-          <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="w-full px-4 h-20 flex items-center justify-between">
             {/* Left: Back + Logo */}
             <div className="flex items-center gap-4">
               <Link
@@ -43,12 +44,21 @@ export default function AscendChat() {
               </Link>
 
               <Link href="/" className="relative h-full flex items-center w-48">
+                {/* Dark Mode Logo - White text */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/logo-horizontal.png"
                   alt="ASCEND"
-                  className="absolute left-0 h-[300%] w-auto object-contain top-1/2 -translate-y-1/2 pointer-events-none dark:invert-0 invert"
+                  className="absolute left-0 h-[300%] w-auto object-contain top-1/2 -translate-y-1/2 pointer-events-none hidden dark:block"
                   style={{ filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.5))" }}
+                />
+                {/* Light Mode Logo - Black text */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo-horizontal-light.png"
+                  alt="ASCEND"
+                  className="absolute left-0 h-[300%] w-auto object-contain top-1/2 -translate-y-1/2 pointer-events-none block dark:hidden"
+                  style={{ filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.1))" }}
                 />
               </Link>
             </div>
@@ -72,8 +82,8 @@ export default function AscendChat() {
         </nav>
 
         {/* Main Chat Container */}
-        <main className="flex-1 pt-20 relative z-10">
-          <div className="h-[calc(100vh-5rem)] max-w-7xl mx-auto">
+        <main className="flex-1 pt-20 relative z-10 w-full">
+          <div className="h-[calc(100vh-5rem)] w-full">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
