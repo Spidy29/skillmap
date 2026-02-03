@@ -1,14 +1,24 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useTheme } from "@/context/ThemeContext";
 
 /**
  * Ascending Beams Background
  * Vertical lines of light rising upwards, symbolizing growth and ascent.
- * Sleek, modern, and distinct from the previous "water" effects.
+ * Dynamic colors based on theme, persists across theme changes.
  */
 export function BeamsBackground() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const { theme } = useTheme();
+
+    // Store theme in ref to access inside animation loop without restarting effect
+    const themeRef = useRef(theme);
+
+    // Update ref when theme changes
+    useEffect(() => {
+        themeRef.current = theme;
+    }, [theme]);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -19,6 +29,11 @@ export function BeamsBackground() {
 
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
+
+        // Dark Mode: Cyan, Bright White, Electric Purple, Neon Green
+        const darkColors = ["#ffffff", "#00ffff", "#bf00ff", "#39ff14", "#ffffff"];
+        // Light Mode: Deep Blue, Purple, Dark Teal (visible on white)
+        const lightColors = ["#0ea5e9", "#7c3aed", "#0d9488", "#2563eb", "#4f46e5"];
 
         class Beam {
             x: number;
@@ -35,11 +50,18 @@ export function BeamsBackground() {
                 this.length = Math.random() * 150 + 50;
                 this.speed = Math.random() * 2 + 0.5;
                 this.width = Math.random() * 2 + 0.5;
-                this.opacity = Math.random() * 0.6 + 0.4; // MUCH BRIGHTER (0.4 to 1.0)
+                this.reset(true); // Initial reset
+            }
 
-                // Cyber palette: Cyan, Bright White, Electric Purple, Neon Green
-                const colors = ["#ffffff", "#00ffff", "#bf00ff", "#39ff14", "#ffffff"];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
+            reset(initial = false) {
+                const currentTheme = themeRef.current;
+                const isDark = currentTheme === "dark";
+                const palette = isDark ? darkColors : lightColors;
+
+                // If not initial reset, we only pick new color when it goes off screen
+                // But initially we need to set color
+                this.opacity = isDark ? (Math.random() * 0.6 + 0.2) : (Math.random() * 0.5 + 0.3);
+                this.color = palette[Math.floor(Math.random() * palette.length)];
             }
 
             update() {
@@ -48,6 +70,10 @@ export function BeamsBackground() {
                 if (this.y + this.length < 0) {
                     this.y = height + Math.random() * 200;
                     this.x = Math.random() * width;
+                    // Reset props for variety
+                    this.length = Math.random() * 150 + 50;
+                    this.speed = Math.random() * 2 + 0.5;
+                    this.reset(); // usage of current theme happens here
                 }
             }
 
@@ -78,7 +104,8 @@ export function BeamsBackground() {
 
         // Create beams
         const beams: Beam[] = [];
-        const BEAM_COUNT = Math.floor(width / 15); // Density
+        // Use density for larger screen, ensuring enough beams
+        const BEAM_COUNT = Math.floor(width / 15);
 
         for (let i = 0; i < BEAM_COUNT; i++) {
             beams.push(new Beam());
@@ -90,42 +117,33 @@ export function BeamsBackground() {
         };
         window.addEventListener("resize", handleResize);
 
+        let animationId: number;
         const animate = () => {
-            // Clear with trail for "warp speed" blur feeling? 
-            // Nah, clean clear is crisper.
-            ctx.fillStyle = "black";
-            ctx.fillRect(0, 0, width, height);
-
-            // Optional: Background Grid for "Tech" feel behind beams
-            //   ctx.strokeStyle = "rgba(255, 255, 255, 0.03)";
-            //   ctx.lineWidth = 1;
-            //   const gridSize = 50;
-            //   for(let x=0; x<width; x+=gridSize) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,height); ctx.stroke(); }
-            //   for(let y=0; y<height; y+=gridSize) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(width,y); ctx.stroke(); }
+            // Clear canvas completely to let CSS background show through
+            ctx.clearRect(0, 0, width, height);
 
             beams.forEach(beam => {
                 beam.update();
                 beam.draw(ctx);
             });
 
-            requestAnimationFrame(animate);
+            animationId = requestAnimationFrame(animate);
         };
 
         animate();
 
         return () => {
             window.removeEventListener("resize", handleResize);
+            cancelAnimationFrame(animationId);
         };
-    }, []);
+    }, []); // Empty dependency array = RUN ONCE, NEVER RESTART
 
     return (
-        <div className="fixed inset-0 z-[-1] pointer-events-none bg-black">
+        <div className="fixed inset-0 z-[-1] pointer-events-none bg-background transition-colors duration-300">
             <canvas
                 ref={canvasRef}
-                className="w-full h-full opacity-80"
+                className="w-full h-full block"
             />
-            {/* Vignette */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)]" />
         </div>
     );
 }
