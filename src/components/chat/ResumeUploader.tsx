@@ -1,12 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import * as pdfjsLib from "pdfjs-dist";
-import { FiUpload, FiFileText, FiLoader } from "react-icons/fi";
+import { useState, useRef } from "react";
+import { FiFileText, FiLoader } from "react-icons/fi";
 import { cn } from "@/lib/utils";
-
-// Set worker source
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 interface ResumeUploaderProps {
     onTextExtracted: (text: string, fileName: string) => void;
@@ -15,49 +11,42 @@ interface ResumeUploaderProps {
 
 export function ResumeUploader({ onTextExtracted, className }: ResumeUploaderProps) {
     const [isUploading, setIsUploading] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (!file) return;
 
-        if (file.type !== "application/pdf") {
-            alert("Please upload a PDF file.");
-            return;
-        }
-
         setIsUploading(true);
 
         try {
-            const arrayBuffer = await file.arrayBuffer();
-            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-            let fullText = "";
+            // Read as text (supports .txt, .md, or pasted content saved as file)
+            const text = await file.text();
 
-            for (let i = 1; i <= pdf.numPages; i++) {
-                const page = await pdf.getPage(i);
-                const textContent = await page.getTextContent();
-                const pageText = textContent.items
-                    .map((item: any) => item.str)
-                    .join(" ");
-                fullText += pageText + "\n";
+            if (text.trim().length === 0) {
+                alert("File is empty. Please upload a file with content.");
+                return;
             }
 
-            onTextExtracted(fullText, file.name);
+            onTextExtracted(text, file.name);
         } catch (error) {
-            console.error("Error extracting text from PDF:", error);
-            alert("Failed to read PDF. Please try another file.");
+            console.error("Error reading file:", error);
+            alert("Failed to read file. Please try a .txt file or paste your resume content.");
         } finally {
             setIsUploading(false);
-            // Reset input
-            event.target.value = "";
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+            }
         }
     };
 
     return (
         <div className={cn("relative", className)}>
             <input
+                ref={fileInputRef}
                 type="file"
                 id="resume-upload"
-                accept=".pdf"
+                accept=".txt,.md,.text"
                 className="hidden"
                 onChange={handleFileUpload}
                 disabled={isUploading}
@@ -75,7 +64,7 @@ export function ResumeUploader({ onTextExtracted, className }: ResumeUploaderPro
                 ) : (
                     <FiFileText className="w-4 h-4" />
                 )}
-                {isUploading ? "Analyzing..." : "Upload Resume"}
+                {isUploading ? "Reading..." : "Upload Resume (.txt)"}
             </label>
         </div>
     );

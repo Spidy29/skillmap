@@ -110,9 +110,10 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 }
 
@@ -123,10 +124,12 @@ You can remove this if you don't want to use it.
 */
 
 @keyframes flash {
+
   0%,
   100% {
     background-color: transparent;
   }
+
   50% {
     background-color: rgb(59 130 246 / 0.3);
   }
@@ -143,6 +146,7 @@ Animated gradient for thinking text, creates a shimmering effect that moves acro
   0% {
     background-position: -200% center;
   }
+
   100% {
     background-position: 200% center;
   }
@@ -152,12 +156,10 @@ Animated gradient for thinking text, creates a shimmering effect that moves acro
   /* Fallback */
   background: linear-gradient(90deg, #666 0%, #bbb 50%, #666 100%);
   /* Preferred (overrides when supported) */
-  background: linear-gradient(
-    90deg,
-    oklch(0.14 0 0) 0%,
-    oklch(0.7 0 0) 50%,
-    oklch(0.14 0 0) 100%
-  );
+  background: linear-gradient(90deg,
+      oklch(0.14 0 0) 0%,
+      oklch(0.7 0 0) 50%,
+      oklch(0.14 0 0) 100%);
   background-size: 200% 100%;
   background-clip: text;
   -webkit-background-clip: text;

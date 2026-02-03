@@ -1,9 +1,10 @@
 "use client";
 
-import { FiArrowRight, FiZap, FiLayers, FiTarget, FiGithub, FiBook, FiCode } from "react-icons/fi";
+import { FiArrowRight, FiZap, FiLayers, FiTarget } from "react-icons/fi";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { BeamsBackground } from "@/components/ui/beams-background";
+import { LoadingLink } from "@/components/ui/LoadingLink";
 
 export default function Home() {
   return (
@@ -33,13 +34,13 @@ export default function Home() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-4">
-            <Link
+            <LoadingLink
               href="/chat"
               className="hidden sm:flex items-center gap-2 px-6 py-2.5 bg-white text-black hover:bg-neutral-200 rounded-full font-medium text-sm transition-all"
             >
               Get Started
               <FiArrowRight className="w-4 h-4" />
-            </Link>
+            </LoadingLink>
           </div>
         </div>
       </nav>
@@ -97,13 +98,13 @@ export default function Home() {
             transition={{ delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link
+            <LoadingLink
               href="/chat"
               className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-semibold text-lg hover:scale-105 transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.15)]"
             >
               Analyze My Profile
               <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </LoadingLink>
           </motion.div>
 
           {/* Stats */}
@@ -214,13 +215,13 @@ export default function Home() {
             <p className="text-xl text-neutral-500 mb-10">
               Your future self is waiting.
             </p>
-            <Link
+            <LoadingLink
               href="/chat"
               className="group inline-flex items-center gap-3 px-10 py-5 bg-white text-black rounded-full font-semibold text-xl hover:scale-105 transition-all duration-300"
             >
               Build Your Roadmap
               <FiArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </LoadingLink>
           </motion.div>
         </div>
       </section>

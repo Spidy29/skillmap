@@ -8,6 +8,7 @@ import { FiZap, FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { BeamsBackground } from "@/components/ui/beams-background";
+import { QuestWidget } from "@/components/gamification/QuestWidget";
 
 /**
  * ASCEND - Career Intelligence Platform
@@ -84,6 +85,7 @@ export default function AscendChat() {
               <MessageThreadFull />
             </motion.div>
           </div>
+          <QuestWidget />
         </main>
 
         {/* Footer - minimal */}
