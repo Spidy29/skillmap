@@ -22,17 +22,16 @@ export default function InteractablesPage() {
 
   return (
     <TamboProvider
-      apiKey={process.env.NEXT_PUBLIC_TAMBO_API_KEY!}
+      apiKey=""
       components={components}
       tools={tools}
-      tamboUrl={process.env.NEXT_PUBLIC_TAMBO_URL}
+      tamboUrl="/api/tambo"
     >
       <div className="flex h-screen bg-gray-50">
         {/* Chat Sidebar */}
         <div
-          className={`${
-            isChatOpen ? "w-80" : "w-0"
-          } border-r border-gray-200 bg-white transition-all duration-300 flex flex-col relative`}
+          className={`${isChatOpen ? "w-80" : "w-0"
+            } border-r border-gray-200 bg-white transition-all duration-300 flex flex-col relative`}
         >
           {isChatOpen && (
             <>
