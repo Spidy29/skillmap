@@ -1,11 +1,11 @@
 # ASCEND - AI Career Intelligence Platform
-# https://ascend.career
+# https://ascend-three-mu.vercel.app
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://ascend.career/sitemap.xml
+Sitemap: https://ascend-three-mu.vercel.app/sitemap.xml
 
 # Block admin/api routes from crawling
 Disallow: /api/

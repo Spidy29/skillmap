@@ -25,7 +25,7 @@ export default function InteractablesPage() {
       apiKey=""
       components={components}
       tools={tools}
-      tamboUrl="/api/tambo"
+      tamboUrl={typeof window !== "undefined" ? `${window.location.origin}/api/tambo` : "/api/tambo"}
     >
       <div className="flex h-screen bg-gray-50">
         {/* Chat Sidebar */}

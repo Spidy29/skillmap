@@ -23,7 +23,7 @@ export default function AscendChat() {
       apiKey=""
       components={components}
       tools={tools}
-      tamboUrl="/api/tambo"
+      tamboUrl={typeof window !== "undefined" ? `${window.location.origin}/api/tambo` : "/api/tambo"}
       mcpServers={mcpServers}
     >
       <div className="min-h-screen text-foreground font-sans flex flex-col overflow-hidden bg-background transition-colors duration-300">
