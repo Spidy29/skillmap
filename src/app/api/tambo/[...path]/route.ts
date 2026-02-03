@@ -39,7 +39,7 @@ export async function GET(
         return NextResponse.json(data, { status: response.status });
     } catch (error) {
         console.error("[Proxy] GET Error:", error);
-        return NextResponse.json({ error: "Proxy request failed" }, { status: 500 });
+        return NextResponse.json({ error: "Proxy request failed", details: String(error) }, { status: 500 });
     }
 }
 
