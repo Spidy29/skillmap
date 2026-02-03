@@ -5,21 +5,21 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { BeamsBackground } from "@/components/ui/beams-background";
 import { LoadingLink } from "@/components/ui/LoadingLink";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export default function Home() {
   return (
-    <div className="min-h-screen text-white font-sans overflow-hidden">
+    <div className="min-h-screen text-foreground font-sans overflow-hidden bg-background transition-colors duration-300">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-md border-b border-white/10">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-
           {/* Logo Section */}
           <Link href="/" className="relative h-full flex items-center w-48">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo-horizontal.png"
               alt="ASCEND"
-              className="absolute left-0 h-[300%] w-auto object-contain top-1/2 -translate-y-1/2 pointer-events-none"
+              className="absolute left-0 h-[300%] w-auto object-contain top-1/2 -translate-y-1/2 pointer-events-none dark:invert-0 invert"
               style={{ filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.5))" }}
             />
           </Link>
@@ -33,10 +33,11 @@ export default function Home() {
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
             <LoadingLink
               href="/chat"
-              className="hidden sm:flex items-center gap-2 px-6 py-2.5 bg-white text-black hover:bg-neutral-200 rounded-full font-medium text-sm transition-all"
+              className="hidden sm:flex items-center gap-2 px-6 py-2.5 bg-foreground text-background hover:opacity-90 rounded-full font-medium text-sm transition-all"
             >
               Get Started
               <FiArrowRight className="w-4 h-4" />
@@ -47,7 +48,6 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center pt-32 pb-32">
-        {/* Ascending Beams Background */}
         <BeamsBackground />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
@@ -56,10 +56,10 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card/50 backdrop-blur-sm mb-8"
           >
-            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-            <span className="text-sm font-mono text-neutral-400">AI-Powered Career Intelligence</span>
+            <span className="w-2 h-2 rounded-full bg-foreground animate-pulse" />
+            <span className="text-sm font-mono text-muted-foreground">AI-Powered Career Intelligence</span>
           </motion.div>
 
           {/* Main Title */}
@@ -77,7 +77,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-2xl md:text-4xl text-neutral-200 max-w-4xl mx-auto mb-8 font-medium tracking-tight"
+            className="text-2xl md:text-4xl text-foreground/80 max-w-4xl mx-auto mb-8 font-medium tracking-tight"
           >
             Architect Your Future.
           </motion.p>
@@ -86,7 +86,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="text-lg text-neutral-500 max-w-2xl mx-auto mb-12"
+            className="text-lg text-muted-foreground max-w-2xl mx-auto mb-12"
           >
             AI-driven skill mapping for precision career growth.
           </motion.p>
@@ -100,7 +100,7 @@ export default function Home() {
           >
             <LoadingLink
               href="/chat"
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-semibold text-lg hover:scale-105 transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.15)]"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-foreground text-background rounded-full font-semibold text-lg hover:scale-105 transition-all duration-300 shadow-lg"
             >
               Analyze My Profile
               <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -124,20 +124,20 @@ export default function Home() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-neutral-500"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground"
         >
-          <div className="w-6 h-10 rounded-full border-2 border-neutral-700 flex items-start justify-center p-2">
+          <div className="w-6 h-10 rounded-full border-2 border-border flex items-start justify-center p-2">
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="w-1.5 h-1.5 rounded-full bg-white"
+              className="w-1.5 h-1.5 rounded-full bg-foreground"
             />
           </div>
         </motion.div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="relative z-10 py-32 border-t border-neutral-900 bg-black/40 backdrop-blur-sm">
+      <section id="features" className="relative z-10 py-32 border-t border-border bg-card/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -145,10 +145,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              How It Works
-            </h2>
-            <p className="text-neutral-500 text-lg max-w-2xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">How It Works</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Three steps to transform your career trajectory
             </p>
           </motion.div>
@@ -177,7 +175,7 @@ export default function Home() {
       </section>
 
       {/* Use Cases */}
-      <section id="prompts" className="relative z-10 py-32 border-t border-neutral-900 bg-black/40 backdrop-blur-sm">
+      <section id="prompts" className="relative z-10 py-32 border-t border-border bg-card/40 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -185,9 +183,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              What Can You Ask?
-            </h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">What Can You Ask?</h2>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
@@ -202,22 +198,18 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative z-10 py-32 border-t border-neutral-900 bg-black/40 backdrop-blur-sm">
+      <section className="relative z-10 py-32 border-t border-border bg-card/40 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold mb-8">
-              Ready to level up?
-            </h2>
-            <p className="text-xl text-neutral-500 mb-10">
-              Your future self is waiting.
-            </p>
+            <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to level up?</h2>
+            <p className="text-xl text-muted-foreground mb-10">Your future self is waiting.</p>
             <LoadingLink
               href="/chat"
-              className="group inline-flex items-center gap-3 px-10 py-5 bg-white text-black rounded-full font-semibold text-xl hover:scale-105 transition-all duration-300"
+              className="group inline-flex items-center gap-3 px-10 py-5 bg-foreground text-background rounded-full font-semibold text-xl hover:scale-105 transition-all duration-300"
             >
               Build Your Roadmap
               <FiArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
@@ -226,21 +218,21 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="relative z-10 py-10 border-t border-neutral-900 text-center bg-black">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-6 text-neutral-300 font-sans text-sm tracking-wide">
+      <footer className="relative z-10 py-10 border-t border-border text-center bg-background">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6 text-muted-foreground font-sans text-sm tracking-wide">
           <div className="flex items-center gap-2 group">
             <span className="opacity-90">Crafted by</span>
             <a
               href="https://heyarjun.me"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-emerald-400 transition-all duration-300 font-medium group-hover:tracking-wider border-b border-transparent hover:border-emerald-400 pb-0.5"
+              className="text-foreground hover:text-primary transition-all duration-300 font-medium group-hover:tracking-wider border-b border-transparent hover:border-primary pb-0.5"
             >
               Arjun Sharma
             </a>
           </div>
-          <span className="hidden md:block w-1 h-1 rounded-full bg-neutral-600"></span>
-          <span className="text-neutral-400 font-mono text-xs">The UI Strikes Back '26</span>
+          <span className="hidden md:block w-1 h-1 rounded-full bg-muted-foreground/50"></span>
+          <span className="text-muted-foreground font-mono text-xs">The UI Strikes Back '26</span>
         </div>
       </footer>
     </div>
@@ -253,7 +245,7 @@ function NavLink({ href, children, external }: { href: string; children: React.R
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
-      className="text-sm font-medium text-neutral-400 hover:text-white transition-colors flex items-center gap-1"
+      className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
     >
       {children}
       {external && <FiArrowRight className="w-3 h-3 -rotate-45" />}
@@ -265,7 +257,7 @@ function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="text-center">
       <div className="text-3xl md:text-4xl font-bold font-mono">{value}</div>
-      <div className="text-sm text-neutral-500 mt-1">{label}</div>
+      <div className="text-sm text-muted-foreground mt-1">{label}</div>
     </div>
   );
 }
@@ -286,16 +278,16 @@ function FeatureCard({
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative bg-neutral-900/50 border border-neutral-800 rounded-2xl p-8 hover:border-neutral-700 transition-all duration-300 text-center"
+      className="group relative bg-card/50 border border-border rounded-2xl p-8 hover:border-foreground/20 transition-all duration-300 text-center"
     >
-      <div className="absolute top-6 right-6 text-5xl font-bold text-neutral-800 font-mono">
+      <div className="absolute top-6 right-6 text-5xl font-bold text-muted/50 font-mono">
         {step}
       </div>
-      <div className="w-14 h-14 rounded-xl bg-white text-black flex items-center justify-center mb-6 text-2xl group-hover:scale-110 transition-transform mx-auto">
+      <div className="w-14 h-14 rounded-xl bg-foreground text-background flex items-center justify-center mb-6 text-2xl group-hover:scale-110 transition-transform mx-auto">
         {icon}
       </div>
       <h3 className="text-2xl font-semibold mb-3">{title}</h3>
-      <p className="text-neutral-400 leading-relaxed">{description}</p>
+      <p className="text-muted-foreground leading-relaxed">{description}</p>
     </motion.div>
   );
 }
@@ -304,15 +296,15 @@ function PromptCard({ text }: { text: string }) {
   return (
     <Link
       href="/chat"
-      className="group block p-5 bg-neutral-900/50 border border-neutral-800 rounded-xl hover:bg-neutral-800/50 hover:border-neutral-700 transition-all duration-300"
+      className="group block p-5 bg-card/50 border border-border rounded-xl hover:bg-card hover:border-foreground/20 transition-all duration-300"
     >
       <div className="flex items-center gap-3">
-        <span className="text-neutral-600 group-hover:text-white transition-colors">&quot;</span>
-        <span className="text-neutral-300 font-mono text-sm group-hover:text-white transition-colors">
+        <span className="text-muted-foreground group-hover:text-foreground transition-colors">&quot;</span>
+        <span className="text-foreground/80 font-mono text-sm group-hover:text-foreground transition-colors">
           {text}
         </span>
-        <span className="text-neutral-600 group-hover:text-white transition-colors">&quot;</span>
-        <FiArrowRight className="w-4 h-4 ml-auto text-neutral-600 group-hover:text-white group-hover:translate-x-1 transition-all" />
+        <span className="text-muted-foreground group-hover:text-foreground transition-colors">&quot;</span>
+        <FiArrowRight className="w-4 h-4 ml-auto text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-all" />
       </div>
     </Link>
   );

@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiAward, FiChevronDown, FiCheck } from "react-icons/fi";
 import { cn } from "@/lib/utils";
 
-// Types
 type Quest = {
     id: string;
     title: string;
@@ -18,7 +17,6 @@ type Level = {
     minXP: number;
 };
 
-// Config
 const LEVELS: Level[] = [
     { rank: "Beginner", minXP: 0 },
     { rank: "Explorer", minXP: 500 },
@@ -59,24 +57,24 @@ export function QuestWidget() {
                 onClick={() => setIsOpen(!isOpen)}
                 className={cn(
                     "relative overflow-hidden flex items-center gap-2 px-4 py-2 rounded-full border transition-all duration-300",
-                    "bg-neutral-900/80 border-white/10 hover:border-white/20",
-                    "text-white backdrop-blur-sm"
+                    "bg-card/80 border-border hover:border-foreground/20",
+                    "text-foreground backdrop-blur-sm"
                 )}
             >
                 {/* Shiny shimmer effect */}
                 <div
                     className="absolute inset-0 -translate-x-full animate-shimmer"
                     style={{
-                        background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%)',
+                        background: 'linear-gradient(90deg, transparent 0%, rgba(128,128,128,0.15) 50%, transparent 100%)',
                     }}
                 />
 
-                <FiAward className="w-4 h-4 text-white/60" />
-                <span className="text-xs font-mono text-white/80">{totalXP} XP</span>
-                <span className="text-[10px] text-white/30">•</span>
-                <span className="text-xs text-white/50">{currentLevel.rank}</span>
+                <FiAward className="w-4 h-4 text-muted-foreground" />
+                <span className="text-xs font-mono text-foreground/80">{totalXP} XP</span>
+                <span className="text-[10px] text-muted-foreground">•</span>
+                <span className="text-xs text-muted-foreground">{currentLevel.rank}</span>
                 <FiChevronDown className={cn(
-                    "w-3 h-3 text-white/40 transition-transform",
+                    "w-3 h-3 text-muted-foreground transition-transform",
                     isOpen && "rotate-180"
                 )} />
             </motion.button>
@@ -89,30 +87,30 @@ export function QuestWidget() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -5, scale: 0.95 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute top-12 right-0 w-56 bg-black/95 border border-white/10 rounded-xl p-3 backdrop-blur-xl shadow-2xl z-50"
+                        className="absolute top-12 right-0 w-56 bg-card border border-border rounded-xl p-3 backdrop-blur-xl shadow-2xl z-50"
                     >
                         {/* Header */}
-                        <div className="flex items-center justify-between mb-2 pb-2 border-b border-white/10">
+                        <div className="flex items-center justify-between mb-2 pb-2 border-b border-border">
                             <div>
-                                <p className="text-xs font-medium text-white">{currentLevel.rank}</p>
-                                <p className="text-[10px] text-white/60 font-mono">
+                                <p className="text-xs font-medium text-foreground">{currentLevel.rank}</p>
+                                <p className="text-[10px] text-muted-foreground font-mono">
                                     {nextLevel ? `${nextLevel.minXP - totalXP} XP to next` : "Max"}
                                 </p>
                             </div>
-                            <p className="text-sm font-bold text-white font-mono">{totalXP}</p>
+                            <p className="text-sm font-bold text-foreground font-mono">{totalXP}</p>
                         </div>
 
                         {/* Progress Bar */}
-                        <div className="h-1 bg-white/10 rounded-full mb-3 overflow-hidden">
+                        <div className="h-1 bg-muted rounded-full mb-3 overflow-hidden">
                             <motion.div
-                                className="h-full bg-white/50 rounded-full"
+                                className="h-full bg-foreground/50 rounded-full"
                                 initial={{ width: 0 }}
                                 animate={{ width: `${progressToNext}%` }}
                             />
                         </div>
 
                         {/* Quests */}
-                        <p className="text-[10px] text-white/50 uppercase tracking-wider mb-2">
+                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">
                             {completedCount}/{quests.length} Complete
                         </p>
                         <div className="space-y-1">
@@ -121,13 +119,13 @@ export function QuestWidget() {
                                     key={quest.id}
                                     className={cn(
                                         "flex items-center justify-between py-1.5 px-2 rounded text-[11px]",
-                                        quest.completed ? "text-white/70" : "text-white/50"
+                                        quest.completed ? "text-foreground/70" : "text-muted-foreground"
                                     )}
                                 >
                                     <div className="flex items-center gap-2">
                                         <div className={cn(
                                             "w-3 h-3 rounded-full flex items-center justify-center border",
-                                            quest.completed ? "bg-white/20 border-white/30" : "border-white/20"
+                                            quest.completed ? "bg-foreground/20 border-foreground/30" : "border-border"
                                         )}>
                                             {quest.completed && <FiCheck className="w-2 h-2" />}
                                         </div>
@@ -135,7 +133,7 @@ export function QuestWidget() {
                                             {quest.title}
                                         </span>
                                     </div>
-                                    <span className="font-mono text-[9px] text-white/40">+{quest.xp}</span>
+                                    <span className="font-mono text-[9px] text-muted-foreground">+{quest.xp}</span>
                                 </div>
                             ))}
                         </div>
@@ -145,4 +143,3 @@ export function QuestWidget() {
         </div>
     );
 }
-

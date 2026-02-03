@@ -1,4 +1,5 @@
 import "./globals.css";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata = {
   title: "ASCEND — AI Career Intelligence Platform",
@@ -20,11 +21,10 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className="antialiased font-sans bg-black text-white"
+        className="antialiased font-sans bg-background text-foreground transition-colors duration-300"
       >
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
 }
-
