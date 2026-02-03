@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const TAMBO_API_URL = process.env.TAMBO_API_URL || "https://api.tambo.ai/v1";
+const TAMBO_API_URL = process.env.TAMBO_API_URL || "https://api.tambo.co/v1";
 const TAMBO_API_KEY = process.env.TAMBO_API_KEY;
 
 export async function GET(
