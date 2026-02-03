@@ -1,5 +1,6 @@
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata = {
   title: "ASCEND — AI Career Intelligence Platform",
@@ -24,6 +25,7 @@ export default function RootLayout({
         className="antialiased font-sans bg-background text-foreground transition-colors duration-300"
       >
         <ThemeProvider>{children}</ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
