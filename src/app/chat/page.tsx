@@ -20,10 +20,10 @@ export default function AscendChat() {
 
   return (
     <TamboProvider
-      apiKey={process.env.NEXT_PUBLIC_TAMBO_API_KEY!}
+      apiKey="secure-backend-mode" // Valid key injected by proxy server-side
       components={components}
       tools={tools}
-      tamboUrl={process.env.NEXT_PUBLIC_TAMBO_URL}
+      tamboUrl="/api/tambo" // Point to local Next.js proxy
       mcpServers={mcpServers}
     >
       <div className="min-h-screen text-foreground font-sans flex flex-col overflow-hidden bg-background transition-colors duration-300">
