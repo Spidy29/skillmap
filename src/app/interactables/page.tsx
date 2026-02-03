@@ -22,7 +22,7 @@ export default function InteractablesPage() {
 
   return (
     <TamboProvider
-      apiKey={process.env.NEXT_PUBLIC_TAMBO_API_KEY!}
+      apiKey={process.env.NEXT_PUBLIC_TAMBO_URL ? "proxy-auth" : process.env.NEXT_PUBLIC_TAMBO_API_KEY!}
       components={components}
       tools={tools}
       tamboUrl={process.env.NEXT_PUBLIC_TAMBO_URL}
