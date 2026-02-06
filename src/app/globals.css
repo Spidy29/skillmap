@@ -196,11 +196,11 @@ Animated gradient for thinking text, creates a shimmering effect that moves acro
 /* Shiny shimmer effect for Quest Widget */
 @keyframes shimmer {
   0% {
-    transform: translateX(-100%);
+    background-position: 200% 0;
   }
 
   100% {
-    transform: translateX(200%);
+    background-position: -200% 0;
   }
 }
 

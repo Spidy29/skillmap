@@ -20,21 +20,19 @@ export function BeamsBackground() {
         ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
         : false;
 
+    // Check if should show static background
+    const showStaticBg = prefersReducedMotion || theme === 'light';
+
     // Update ref when theme changes
     useEffect(() => {
         themeRef.current = theme;
     }, [theme]);
 
-    // Return static gradient for users who prefer reduced motion
-    if (prefersReducedMotion) {
-        return (
-            <div className="fixed inset-0 z-[-1] pointer-events-none bg-background transition-colors duration-300">
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background to-primary/5" />
-            </div>
-        );
-    }
-
+    // Main animation effect - always called (hooks must be unconditional)
     useEffect(() => {
+        // Skip animation if showing static background
+        if (showStaticBg) return;
+
         const canvas = canvasRef.current;
         if (!canvas) return;
 
@@ -46,8 +44,6 @@ export function BeamsBackground() {
 
         // Dark Mode: Cyan, Bright White, Electric Purple, Neon Green
         const darkColors = ["#ffffff", "#00ffff", "#bf00ff", "#39ff14", "#ffffff"];
-        // Light Mode: Deep Blue, Purple, Dark Teal (visible on white)
-        const lightColors = ["#0ea5e9", "#7c3aed", "#0d9488", "#2563eb", "#4f46e5"];
 
         class Beam {
             x: number;
@@ -60,69 +56,55 @@ export function BeamsBackground() {
 
             constructor() {
                 this.x = Math.random() * width;
-                this.y = height + Math.random() * 200; // Start below screen
+                this.y = height + Math.random() * 200;
                 this.length = Math.random() * 150 + 50;
                 this.speed = Math.random() * 2 + 0.5;
                 this.width = Math.random() * 2 + 0.5;
-                // Initialize with defaults before reset
-                this.opacity = 0.5;
-                this.color = "#ffffff";
-                this.reset(true); // Initial reset will set proper values
-            }
-
-            reset(initial = false) {
-                const currentTheme = themeRef.current;
-                const isDark = currentTheme === "dark";
-                const palette = isDark ? darkColors : lightColors;
-
-                // If not initial reset, we only pick new color when it goes off screen
-                // But initially we need to set color
-                this.opacity = isDark ? (Math.random() * 0.6 + 0.2) : (Math.random() * 0.5 + 0.3);
-                this.color = palette[Math.floor(Math.random() * palette.length)];
+                this.opacity = Math.random() * 0.6 + 0.2;
+                this.color = darkColors[Math.floor(Math.random() * darkColors.length)];
             }
 
             update() {
                 this.y -= this.speed;
-                // Reset if off top
                 if (this.y + this.length < 0) {
-                    this.y = height + Math.random() * 200;
+                    this.y = height + Math.random() * 100;
                     this.x = Math.random() * width;
-                    // Reset props for variety
                     this.length = Math.random() * 150 + 50;
                     this.speed = Math.random() * 2 + 0.5;
-                    this.reset(); // usage of current theme happens here
+                    this.opacity = Math.random() * 0.6 + 0.2;
+                    this.color = darkColors[Math.floor(Math.random() * darkColors.length)];
                 }
             }
 
             draw(ctx: CanvasRenderingContext2D) {
-                // Gradient fade for the trail
-                const gradient = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.length);
-                gradient.addColorStop(0, "rgba(0,0,0,0)"); // Top fade
-                gradient.addColorStop(0.5, this.hexToRgbA(this.color, this.opacity)); // Middle bright
-                gradient.addColorStop(1, "rgba(0,0,0,0)"); // Bottom fade
+                const gradient = ctx.createLinearGradient(this.x, this.y + this.length, this.x, this.y);
 
-                ctx.fillStyle = gradient;
-                ctx.fillRect(this.x, this.y, this.width, this.length);
-            }
+                const hexToRgb = (hex: string) => {
+                    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                    return result ? {
+                        r: parseInt(result[1], 16),
+                        g: parseInt(result[2], 16),
+                        b: parseInt(result[3], 16)
+                    } : { r: 255, g: 255, b: 255 };
+                };
 
-            hexToRgbA(hex: string, alpha: number) {
-                let c: any;
-                if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
-                    c = hex.substring(1).split('');
-                    if (c.length == 3) {
-                        c = [c[0], c[0], c[1], c[1], c[2], c[2]];
-                    }
-                    c = '0x' + c.join('');
-                    return 'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + ',' + alpha + ')';
-                }
-                return 'rgba(255,255,255,' + alpha + ')';
+                const rgb = hexToRgb(this.color);
+
+                gradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
+                gradient.addColorStop(0.5, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${this.opacity})`);
+                gradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
+
+                ctx.beginPath();
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = this.width;
+                ctx.moveTo(this.x, this.y + this.length);
+                ctx.lineTo(this.x, this.y);
+                ctx.stroke();
             }
         }
 
-        // Create beams
+        const BEAM_COUNT = 30;
         const beams: Beam[] = [];
-        // Use density for larger screen, ensuring enough beams
-        const BEAM_COUNT = Math.floor(width / 15);
 
         for (let i = 0; i < BEAM_COUNT; i++) {
             beams.push(new Beam());
@@ -136,7 +118,6 @@ export function BeamsBackground() {
 
         let animationId: number;
         const animate = () => {
-            // Clear canvas completely to let CSS background show through
             ctx.clearRect(0, 0, width, height);
 
             beams.forEach(beam => {
@@ -153,7 +134,19 @@ export function BeamsBackground() {
             window.removeEventListener("resize", handleResize);
             cancelAnimationFrame(animationId);
         };
-    }, []); // Empty dependency array = RUN ONCE, NEVER RESTART
+    }, [showStaticBg]);
+
+    // Conditional rendering in return (safe - all hooks already called)
+    if (showStaticBg) {
+        return (
+            <div className="fixed inset-0 z-[-1] pointer-events-none bg-background transition-colors duration-300">
+                {/* Subtle gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-transparent to-muted/20" />
+                {/* Radial glow in center */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.03] rounded-full blur-3xl" />
+            </div>
+        );
+    }
 
     return (
         <div className="fixed inset-0 z-[-1] pointer-events-none bg-background transition-colors duration-300">
