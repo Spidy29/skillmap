@@ -35,11 +35,11 @@ type ProgressMeterProps = z.infer<typeof progressMeterSchema>;
 const getTrendIcon = (trend: string) => {
     switch (trend) {
         case "up":
-            return <FiTrendingUp className="w-4 h-4 text-white" />;
+            return <FiTrendingUp className="w-4 h-4 text-primary" />;
         case "down":
-            return <FiTrendingUp className="w-4 h-4 text-neutral-500 rotate-180" />;
+            return <FiTrendingUp className="w-4 h-4 text-muted-foreground rotate-180" />;
         default:
-            return <span className="w-4 h-4 text-neutral-600">→</span>;
+            return <span className="w-4 h-4 text-muted-foreground">→</span>;
     }
 };
 
@@ -59,15 +59,15 @@ export function ProgressMeter({
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="w-full max-w-xl mx-auto bg-black rounded-2xl p-6 shadow-2xl border border-neutral-800"
+            className="w-full max-w-xl mx-auto bg-card rounded-2xl p-6 shadow-2xl border border-border"
         >
             {/* Header */}
             <div className="text-center mb-6">
-                <p className="text-sm text-neutral-500 font-sans">Your journey from</p>
+                <p className="text-sm text-muted-foreground font-sans">Your journey from</p>
                 <div className="flex items-center justify-center gap-3 mt-1 font-mono">
-                    <span className="text-lg text-neutral-400">{currentRole}</span>
-                    <span className="text-2xl text-neutral-600">→</span>
-                    <span className="text-lg text-white font-semibold">
+                    <span className="text-lg text-muted-foreground">{currentRole}</span>
+                    <span className="text-2xl text-muted-foreground/50">→</span>
+                    <span className="text-lg text-foreground font-semibold">
                         {targetRole}
                     </span>
                 </div>
@@ -81,7 +81,7 @@ export function ProgressMeter({
                             cx="80"
                             cy="80"
                             r="70"
-                            stroke="#262626"
+                            className="stroke-muted"
                             strokeWidth="12"
                             fill="none"
                         />
@@ -89,7 +89,7 @@ export function ProgressMeter({
                             cx="80"
                             cy="80"
                             r="70"
-                            stroke="#ffffff"
+                            className="stroke-foreground"
                             strokeWidth="12"
                             fill="none"
                             strokeLinecap="round"
@@ -106,11 +106,11 @@ export function ProgressMeter({
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ delay: 0.5, type: "spring" }}
-                            className="text-4xl font-bold text-white font-mono"
+                            className="text-4xl font-bold text-foreground font-mono"
                         >
                             {safeReadiness}%
                         </motion.span>
-                        <span className="text-sm text-neutral-500">Ready</span>
+                        <span className="text-sm text-muted-foreground">Ready</span>
                     </div>
                 </div>
             </div>
@@ -123,23 +123,23 @@ export function ProgressMeter({
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2 + index * 0.1 }}
-                        className="bg-neutral-900 rounded-lg p-3 border border-neutral-800"
+                        className="bg-muted/50 rounded-lg p-3 border border-border"
                     >
                         <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm text-neutral-400 flex items-center gap-2 font-sans">
+                            <span className="text-sm text-muted-foreground flex items-center gap-2 font-sans">
                                 {item.category}
                                 {getTrendIcon(item.trend)}
                             </span>
-                            <span className="text-sm font-medium text-white font-mono">
+                            <span className="text-sm font-medium text-foreground font-mono">
                                 {item.score}%
                             </span>
                         </div>
-                        <div className="h-2 bg-neutral-800 rounded-full overflow-hidden">
+                        <div className="h-2 bg-muted rounded-full overflow-hidden">
                             <motion.div
                                 initial={{ width: 0 }}
                                 animate={{ width: `${item.score}%` }}
                                 transition={{ duration: 1, delay: 0.3 + index * 0.1 }}
-                                className="h-full bg-white rounded-full"
+                                className="h-full bg-foreground rounded-full"
                             />
                         </div>
                     </motion.div>
@@ -147,18 +147,18 @@ export function ProgressMeter({
             </div>
 
             {/* Next Milestone */}
-            <div className="bg-neutral-900 rounded-lg p-4 border border-neutral-700 mb-4">
+            <div className="bg-muted/50 rounded-lg p-4 border border-primary/30 mb-4">
                 <div className="flex items-center gap-2 mb-2">
-                    <FiTarget className="w-5 h-5 text-white" />
-                    <span className="text-sm font-medium text-neutral-300 font-sans">Next Milestone</span>
+                    <FiTarget className="w-5 h-5 text-primary" />
+                    <span className="text-sm font-medium text-muted-foreground font-sans">Next Milestone</span>
                 </div>
-                <p className="text-white font-sans">{nextMilestone}</p>
+                <p className="text-foreground font-sans">{nextMilestone}</p>
             </div>
 
             {/* Insights */}
             <div className="space-y-2">
-                <h4 className="text-sm font-medium text-neutral-300 flex items-center gap-2 font-sans">
-                    <FiZap className="w-4 h-4 text-white" />
+                <h4 className="text-sm font-medium text-muted-foreground flex items-center gap-2 font-sans">
+                    <FiZap className="w-4 h-4 text-primary" />
                     Key Insights
                 </h4>
                 {safeInsights.map((insight, index) => (
@@ -167,7 +167,7 @@ export function ProgressMeter({
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.5 + index * 0.1 }}
-                        className="text-sm text-neutral-500 pl-6 font-sans"
+                        className="text-sm text-muted-foreground pl-6 font-sans"
                     >
                         • {insight}
                     </motion.p>

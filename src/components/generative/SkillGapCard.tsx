@@ -35,20 +35,20 @@ const getPriorityConfig = (priority: string) => {
     switch (priority) {
         case "high":
             return {
-                color: "border-white bg-white/5",
-                badge: "bg-white text-black",
+                color: "border-primary bg-primary/5",
+                badge: "bg-foreground text-background",
                 icon: <FiAlertTriangle className="w-4 h-4" />,
             };
         case "medium":
             return {
-                color: "border-neutral-500 bg-neutral-500/5",
-                badge: "bg-neutral-500 text-white",
+                color: "border-muted-foreground bg-muted-foreground/5",
+                badge: "bg-muted-foreground text-background",
                 icon: <FiClock className="w-4 h-4" />,
             };
         default:
             return {
-                color: "border-neutral-700 bg-neutral-700/5",
-                badge: "bg-neutral-700 text-white",
+                color: "border-border bg-muted/30",
+                badge: "bg-muted text-foreground",
                 icon: <FiCheckCircle className="w-4 h-4" />,
             };
     }
@@ -94,18 +94,18 @@ export function SkillGapCard({
             whileHover={{ scale: 1.02 }}
             className={`
         w-full max-w-md rounded-xl border-2 p-5 shadow-lg
-        bg-black
+        bg-card
         ${priorityConfig.color}
       `}
         >
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
                 <div>
-                    <h3 className="text-xl font-bold text-white font-sans">{skill}</h3>
-                    <div className="flex items-center gap-2 mt-1 text-sm text-neutral-500 font-mono">
-                        <span className="text-neutral-400">{getLevelLabel(currentLevel)}</span>
+                    <h3 className="text-xl font-bold text-foreground font-sans">{skill}</h3>
+                    <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground font-mono">
+                        <span className="text-muted-foreground">{getLevelLabel(currentLevel)}</span>
                         <FiArrowRight className="w-4 h-4" />
-                        <span className="text-white">{getLevelLabel(requiredLevel)}</span>
+                        <span className="text-foreground">{getLevelLabel(requiredLevel)}</span>
                     </div>
                 </div>
 
@@ -119,18 +119,18 @@ export function SkillGapCard({
             </div>
 
             {/* Reason */}
-            <p className="text-neutral-400 text-sm mb-4 leading-relaxed font-sans">{reason}</p>
+            <p className="text-muted-foreground text-sm mb-4 leading-relaxed font-sans">{reason}</p>
 
             {/* Time Estimate */}
-            <div className="flex items-center gap-2 mb-4 text-sm text-neutral-500 font-mono">
+            <div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground font-mono">
                 <FiClock className="w-4 h-4" />
                 <span>Estimated: </span>
-                <span className="text-white font-medium">{estimatedTime}</span>
+                <span className="text-foreground font-medium">{estimatedTime}</span>
             </div>
 
             {/* Resources */}
-            <div className="border-t border-neutral-800 pt-4">
-                <h4 className="text-sm font-semibold text-neutral-300 mb-2 font-sans">
+            <div className="border-t border-border pt-4">
+                <h4 className="text-sm font-semibold text-muted-foreground mb-2 font-sans">
                     Recommended Resources:
                 </h4>
                 <div className="space-y-2">
@@ -148,14 +148,14 @@ export function SkillGapCard({
                                     href={resource.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-white hover:text-neutral-300 hover:underline"
+                                    className="text-foreground hover:text-primary hover:underline"
                                 >
                                     {resource.title}
                                 </a>
                             ) : (
-                                <span className="text-neutral-300">{resource.title}</span>
+                                <span className="text-muted-foreground">{resource.title}</span>
                             )}
-                            <span className="text-neutral-600 text-xs capitalize">
+                            <span className="text-muted-foreground/70 text-xs capitalize">
                                 ({resource.type})
                             </span>
                         </motion.div>

@@ -15,10 +15,24 @@ export function BeamsBackground() {
     // Store theme in ref to access inside animation loop without restarting effect
     const themeRef = useRef(theme);
 
+    // Check for reduced motion preference
+    const prefersReducedMotion = typeof window !== 'undefined'
+        ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        : false;
+
     // Update ref when theme changes
     useEffect(() => {
         themeRef.current = theme;
     }, [theme]);
+
+    // Return static gradient for users who prefer reduced motion
+    if (prefersReducedMotion) {
+        return (
+            <div className="fixed inset-0 z-[-1] pointer-events-none bg-background transition-colors duration-300">
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background to-primary/5" />
+            </div>
+        );
+    }
 
     useEffect(() => {
         const canvas = canvasRef.current;

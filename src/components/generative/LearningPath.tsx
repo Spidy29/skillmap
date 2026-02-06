@@ -61,15 +61,15 @@ export function LearningPath({
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="w-full max-w-2xl mx-auto bg-black rounded-2xl p-6 shadow-2xl border border-neutral-800"
+            className="w-full max-w-2xl mx-auto bg-card rounded-2xl p-6 shadow-2xl border border-border"
         >
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <div>
-                    <h2 className="text-2xl font-bold text-white font-sans">
+                    <h2 className="text-2xl font-bold text-foreground font-sans">
                         Learning Path: {skill}
                     </h2>
-                    <div className="flex items-center gap-4 mt-2 text-sm text-neutral-500 font-mono">
+                    <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground font-mono">
                         <span className="flex items-center gap-1">
                             <FiClock className="w-4 h-4" />
                             {totalDuration}
@@ -77,19 +77,19 @@ export function LearningPath({
                         <span>•</span>
                         <span>{steps.length} steps</span>
                         <span>•</span>
-                        <span className="text-white">{progress}% complete</span>
+                        <span className="text-foreground">{progress}% complete</span>
                     </div>
                 </div>
             </div>
 
             {/* Progress Bar */}
             <div className="mb-6">
-                <div className="h-2 bg-neutral-800 rounded-full overflow-hidden">
+                <div className="h-2 bg-muted rounded-full overflow-hidden">
                     <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${progress}%` }}
                         transition={{ duration: 1, ease: "easeOut" }}
-                        className="h-full bg-white"
+                        className="h-full bg-foreground"
                     />
                 </div>
             </div>
@@ -106,39 +106,39 @@ export function LearningPath({
                             transition={{ delay: index * 0.1 }}
                             className={`
                 relative pl-8 pb-4
-                ${index !== safeSteps.length - 1 ? "border-l-2 border-neutral-800" : ""}
+                ${index !== safeSteps.length - 1 ? "border-l-2 border-border" : ""}
               `}
                         >
                             {/* Step Number/Check */}
                             <div
                                 className={`
                   absolute -left-3 top-0 w-6 h-6 rounded-full flex items-center justify-center
-                  ${step.completed ? "bg-white text-black" : "bg-neutral-800 border-2 border-neutral-600"}
+                  ${step.completed ? "bg-foreground text-background" : "bg-muted border-2 border-border"}
                 `}
                             >
                                 {step.completed ? (
                                     <FiCheckCircle className="w-4 h-4" />
                                 ) : (
-                                    <span className="text-xs text-neutral-300 font-mono">{index + 1}</span>
+                                    <span className="text-xs text-muted-foreground font-mono">{index + 1}</span>
                                 )}
                             </div>
 
                             {/* Step Content */}
                             <div
                                 className={`
-                  bg-neutral-900 rounded-lg p-4 border border-neutral-800
+                  bg-muted/50 rounded-lg p-4 border border-border
                   ${step.completed ? "opacity-60" : ""}
                 `}
                             >
                                 <div className="flex items-center gap-2 mb-2">
-                                    <span className="text-white">{typeConfig.icon}</span>
-                                    <h3 className="text-lg font-semibold text-white font-sans">{step.title}</h3>
-                                    <span className="ml-auto text-xs text-neutral-500 bg-neutral-800 px-2 py-1 rounded font-mono">
+                                    <span className="text-foreground">{typeConfig.icon}</span>
+                                    <h3 className="text-lg font-semibold text-foreground font-sans">{step.title}</h3>
+                                    <span className="ml-auto text-xs text-muted-foreground bg-muted px-2 py-1 rounded font-mono">
                                         {step.duration}
                                     </span>
                                 </div>
 
-                                <p className="text-sm text-neutral-400 mb-3 font-sans">{step.description}</p>
+                                <p className="text-sm text-muted-foreground mb-3 font-sans">{step.description}</p>
 
                                 {step.resources && step.resources.length > 0 && (
                                     <div className="flex flex-wrap gap-2">
@@ -148,7 +148,7 @@ export function LearningPath({
                                                 href={resource.url || "#"}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-xs bg-neutral-800 text-white px-2 py-1 rounded hover:bg-neutral-700 transition-colors font-mono"
+                                                className="text-xs bg-muted text-foreground px-2 py-1 rounded hover:bg-muted/80 transition-colors font-mono"
                                             >
                                                 📎 {resource.name}
                                             </a>
@@ -162,7 +162,7 @@ export function LearningPath({
             </div>
 
             {/* Legend */}
-            <div className="mt-6 pt-4 border-t border-neutral-800 flex flex-wrap gap-4 text-xs text-neutral-500 font-mono">
+            <div className="mt-6 pt-4 border-t border-border flex flex-wrap gap-4 text-xs text-muted-foreground font-mono">
                 <div className="flex items-center gap-1">
                     <FiBook className="w-3 h-3" />
                     <span>Theory</span>

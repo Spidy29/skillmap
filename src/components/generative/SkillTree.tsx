@@ -46,28 +46,28 @@ type SkillTreeProps = z.infer<typeof skillTreeSchema>;
 const getLevelColor = (level: string) => {
   switch (level) {
     case "expert":
-      return "bg-white text-black";
+      return "bg-foreground text-background";
     case "advanced":
-      return "bg-neutral-200 text-black";
+      return "bg-foreground/80 text-background";
     case "intermediate":
-      return "bg-neutral-400 text-black";
+      return "bg-muted-foreground text-background";
     case "beginner":
-      return "bg-neutral-600 text-white";
+      return "bg-muted text-foreground";
     case "missing":
-      return "bg-neutral-800 text-white border border-neutral-600";
+      return "bg-card text-muted-foreground border border-border";
     default:
-      return "bg-neutral-700 text-white";
+      return "bg-muted text-foreground";
   }
 };
 
 const getRequiredIcon = (required: string) => {
   switch (required) {
     case "required":
-      return <FiTarget className="w-4 h-4 text-white" />;
+      return <FiTarget className="w-4 h-4 text-primary" />;
     case "recommended":
-      return <FiTrendingUp className="w-4 h-4 text-neutral-400" />;
+      return <FiTrendingUp className="w-4 h-4 text-muted-foreground" />;
     default:
-      return <FiBook className="w-4 h-4 text-neutral-500" />;
+      return <FiBook className="w-4 h-4 text-muted-foreground/70" />;
   }
 };
 
@@ -86,16 +86,16 @@ export function SkillTree({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="w-full max-w-4xl mx-auto bg-black rounded-2xl p-6 shadow-2xl border border-neutral-800"
+      className="w-full max-w-4xl mx-auto bg-card rounded-2xl p-6 shadow-2xl border border-border"
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-white font-sans">{title}</h2>
-          <p className="text-neutral-500 text-sm mt-1 font-mono">
-            <span className="text-neutral-300">{currentRole}</span>
+          <h2 className="text-2xl font-bold text-foreground font-sans">{title}</h2>
+          <p className="text-muted-foreground text-sm mt-1 font-mono">
+            <span className="text-muted-foreground">{currentRole}</span>
             <span className="mx-2">→</span>
-            <span className="text-white font-medium">{targetRole}</span>
+            <span className="text-foreground font-medium">{targetRole}</span>
           </p>
         </div>
 
@@ -107,7 +107,7 @@ export function SkillTree({
                 cx="40"
                 cy="40"
                 r="35"
-                stroke="#262626"
+                className="stroke-muted"
                 strokeWidth="6"
                 fill="none"
               />
@@ -115,7 +115,7 @@ export function SkillTree({
                 cx="40"
                 cy="40"
                 r="35"
-                stroke="#ffffff"
+                className="stroke-foreground"
                 strokeWidth="6"
                 fill="none"
                 strokeLinecap="round"
@@ -126,10 +126,10 @@ export function SkillTree({
               />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-xl font-bold text-white font-mono">{safeReadiness}%</span>
+              <span className="text-xl font-bold text-foreground font-mono">{safeReadiness}%</span>
             </div>
           </div>
-          <span className="text-xs text-neutral-500 mt-1">Ready</span>
+          <span className="text-xs text-muted-foreground mt-1">Ready</span>
         </div>
       </div>
 
@@ -141,10 +141,10 @@ export function SkillTree({
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: catIndex * 0.1 }}
-            className="bg-neutral-900 rounded-xl p-4 border border-neutral-800"
+            className="bg-muted/50 rounded-xl p-4 border border-border"
           >
-            <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2 font-sans">
-              <span className="w-2 h-2 rounded-full bg-white"></span>
+            <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2 font-sans">
+              <span className="w-2 h-2 rounded-full bg-primary"></span>
               {category.name}
             </h3>
 
@@ -177,25 +177,25 @@ export function SkillTree({
       </div>
 
       {/* Legend */}
-      <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-neutral-500 font-mono">
+      <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-muted-foreground font-mono">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-white"></div>
+          <div className="w-3 h-3 rounded-full bg-foreground"></div>
           <span>Expert</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-neutral-200"></div>
+          <div className="w-3 h-3 rounded-full bg-foreground/80"></div>
           <span>Advanced</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-neutral-400"></div>
+          <div className="w-3 h-3 rounded-full bg-muted-foreground"></div>
           <span>Intermediate</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-neutral-600"></div>
+          <div className="w-3 h-3 rounded-full bg-muted"></div>
           <span>Beginner</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-neutral-800 border border-neutral-600"></div>
+          <div className="w-3 h-3 rounded-full bg-card border border-border"></div>
           <span>Missing</span>
         </div>
       </div>
