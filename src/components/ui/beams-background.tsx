@@ -64,7 +64,10 @@ export function BeamsBackground() {
                 this.length = Math.random() * 150 + 50;
                 this.speed = Math.random() * 2 + 0.5;
                 this.width = Math.random() * 2 + 0.5;
-                this.reset(true); // Initial reset
+                // Initialize with defaults before reset
+                this.opacity = 0.5;
+                this.color = "#ffffff";
+                this.reset(true); // Initial reset will set proper values
             }
 
             reset(initial = false) {
