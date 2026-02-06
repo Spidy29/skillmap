@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { z } from "zod";
 import { FiBriefcase, FiMapPin, FiDollarSign, FiCheckCircle, FiX, FiExternalLink, FiStar } from "react-icons/fi";
+import { useEffect } from "react";
+import { completeQuest } from "@/lib/questStore";
 
 // Schema for JobMatchCard component
 export const jobMatchCardSchema = z.object({
@@ -36,6 +38,11 @@ export function JobMatchCard({
     const safeMissingSkills = Array.isArray(missingSkills) ? missingSkills : [];
     const safeHighlights = Array.isArray(highlights) ? highlights : [];
     const safeMatchScore = typeof matchScore === "number" ? matchScore : 0;
+
+    // Complete job search quest when this component renders
+    useEffect(() => {
+        completeQuest("job");
+    }, []);
 
     const getMatchColor = (score: number) => {
         if (score >= 80) return "text-green-400 border-green-400/50 bg-green-400/10";

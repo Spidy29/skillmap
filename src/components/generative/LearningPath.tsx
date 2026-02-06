@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { FiCheckCircle, FiClock, FiBook, FiCode, FiZap, FiFileText } from "react-icons/fi";
 import { z } from "zod";
+import { completeQuest } from "@/lib/questStore";
 
 // Schema for LearningPath component
 export const learningPathSchema = z.object({
@@ -56,6 +58,11 @@ export function LearningPath({
     const safeSteps = Array.isArray(steps) ? steps : [];
     const completedSteps = safeSteps.filter((s) => s.completed).length;
     const progress = safeSteps.length > 0 ? Math.round((completedSteps / safeSteps.length) * 100) : 0;
+
+    // Complete "roadmap" quest when this component renders
+    useEffect(() => {
+        completeQuest("roadmap");
+    }, []);
 
     return (
         <motion.div

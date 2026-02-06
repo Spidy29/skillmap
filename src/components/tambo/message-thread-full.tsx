@@ -10,6 +10,7 @@ import {
   MessageInputSubmitButton,
   MessageInputTextarea,
   MessageInputToolbar,
+  useMessageInputContext,
 } from "@/components/tambo/message-input";
 import {
   MessageSuggestions,
@@ -32,6 +33,7 @@ import {
   ThreadHistorySearch,
 } from "@/components/tambo/thread-history";
 import { useMergeRefs } from "@/lib/thread-hooks";
+import { completeQuest } from "@/lib/questStore";
 import type { Suggestion } from "@tambo-ai/react";
 import type { VariantProps } from "class-variance-authority";
 import * as React from "react";
@@ -148,25 +150,7 @@ export const MessageThreadFull = React.forwardRef<
           <MessageInput>
             <MessageInputTextarea placeholder="Type a message to start your career journey..." />
             <MessageInputToolbar>
-              <ResumeUploader onTextExtracted={(text, filename) => {
-                const prompt = `Here is my resume content from ${filename}:\n\n${text}\n\nBased on this resume, please create a detailed Skill Tree analysis of my proficient skills.`;
-                // We need to inject this into the input. The cleanest way is to dispatch a custom event or use the context if accessible.
-                // Since this component doesn't have direct access to the input context here, we can use a workaround or move this inside MessageInput.
-                // However, MessageInputTextarea is where the state lives.
-
-                // Let's try appending to the textarea if possible, or just alerting the user to paste it.
-                // Better approach: The ResumeUploader should probably be INSIDE MessageInputToolbar to access context? 
-                // No, context usage is restricted. 
-
-                // Workaround: We will use a global event or simply locate the textarea and update it.
-                const textarea = document.querySelector('textarea[data-slot="message-input-textarea"]') as HTMLTextAreaElement;
-                if (textarea) {
-                  const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value")?.set;
-                  nativeInputValueSetter?.call(textarea, prompt);
-                  textarea.dispatchEvent(new Event('input', { bubbles: true }));
-                  textarea.focus();
-                }
-              }} />
+              <ResumeUploadWithContext />
               <MessageInputFileButton />
               <MessageInputMcpPromptButton />
               <MessageInputMcpResourceButton />
@@ -190,6 +174,41 @@ export const MessageThreadFull = React.forwardRef<
   );
 });
 MessageThreadFull.displayName = "MessageThreadFull";
+
+
+/**
+ * Wrapper for ResumeUploader that uses MessageInputContext to submit 
+ * the resume content cleanly via React state instead of DOM manipulation.
+ */
+function ResumeUploadWithContext() {
+  const { setValue, submit } = useMessageInputContext();
+
+  return (
+    <ResumeUploader
+      onTextExtracted={(text, filename) => {
+        console.log("🎯 Resume uploaded via Context Wrapper");
+        completeQuest("resume");
+
+        const prompt = `Here is my resume content from ${filename}:\n\n${text}\n\nBased on this resume, please create a detailed Skill Tree analysis of my proficient skills.`;
+
+        // Update input value via context
+        setValue(prompt);
+
+        // Submit after a brief delay to ensure state update
+        setTimeout(async () => {
+          try {
+            await submit({ resourceNames: {} });
+          } catch (error) {
+            console.error("Failed to submit resume:", error);
+          } finally {
+            // Clear input after submission to prevent text reappearing
+            setValue("");
+          }
+        }, 100);
+      }}
+    />
+  );
+}
 
 /**
  * Premium feature card for welcome section

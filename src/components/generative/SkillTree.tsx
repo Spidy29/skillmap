@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   FiCheckCircle,
@@ -9,6 +10,7 @@ import {
   FiBook,
 } from "react-icons/fi";
 import { z } from "zod";
+import { completeQuest } from "@/lib/questStore";
 
 // Schema for SkillTree component
 export const skillTreeSchema = z.object({
@@ -81,6 +83,11 @@ export function SkillTree({
   // Ensure categories is always an array
   const safeCategories = Array.isArray(categories) ? categories : [];
   const safeReadiness = typeof overallReadiness === 'number' ? overallReadiness : 0;
+
+  // Complete "skill" quest when this component renders
+  useEffect(() => {
+    completeQuest("skill");
+  }, []);
 
   return (
     <motion.div

@@ -14,23 +14,32 @@ export function ResumeUploader({ onTextExtracted, className }: ResumeUploaderPro
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        console.log("🟢 handleFileUpload triggered");
         const file = event.target.files?.[0];
-        if (!file) return;
+        console.log("📁 File selected:", file?.name, file?.type, file?.size);
+        if (!file) {
+            console.log("❌ No file selected");
+            return;
+        }
 
         setIsUploading(true);
 
         try {
             // Read as text (supports .txt, .md, or pasted content saved as file)
+            console.log("📖 Reading file...");
             const text = await file.text();
+            console.log("📝 Text length:", text.length);
 
             if (text.trim().length === 0) {
+                console.log("❌ File is empty");
                 alert("File is empty. Please upload a file with content.");
                 return;
             }
 
+            console.log("✅ Calling onTextExtracted with text");
             onTextExtracted(text, file.name);
         } catch (error) {
-            console.error("Error reading file:", error);
+            console.error("❌ Error reading file:", error);
             alert("Failed to read file. Please try a .txt file or paste your resume content.");
         } finally {
             setIsUploading(false);

@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { FiAlertTriangle, FiCheckCircle, FiClock, FiArrowRight } from "react-icons/fi";
 import { z } from "zod";
+import { completeQuest } from "@/lib/questStore";
 
 // Schema for SkillGapCard component
 export const skillGapCardSchema = z.object({
@@ -86,6 +88,11 @@ export function SkillGapCard({
 }: Partial<SkillGapCardProps>) {
     const safeResources = Array.isArray(resources) ? resources : [];
     const priorityConfig = getPriorityConfig(priority || "medium");
+
+    // Complete "skill" quest when this component renders
+    useEffect(() => {
+        completeQuest("skill");
+    }, []);
 
     return (
         <motion.div

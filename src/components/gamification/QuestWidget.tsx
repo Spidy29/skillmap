@@ -1,16 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiAward, FiChevronDown, FiCheck } from "react-icons/fi";
 import { cn } from "@/lib/utils";
-
-type Quest = {
-    id: string;
-    title: string;
-    xp: number;
-    completed: boolean;
-};
+import { getQuests, getTotalXP, type Quest } from "@/lib/questStore";
 
 type Level = {
     rank: string;
@@ -28,30 +22,67 @@ const LEVELS: Level[] = [
 export function QuestWidget() {
     const [isOpen, setIsOpen] = useState(false);
     const [totalXP, setTotalXP] = useState(0);
-    const [quests] = useState<Quest[]>([
-        { id: "resume", title: "Upload Resume", xp: 500, completed: true },
-        { id: "roadmap", title: "Generate Roadmap", xp: 800, completed: false },
-        { id: "skill", title: "Analyze Skills", xp: 400, completed: false },
-        { id: "job", title: "Find Jobs", xp: 300, completed: false },
-    ]);
+    const [quests, setQuests] = useState<Quest[]>([]);
+    const [showXPGain, setShowXPGain] = useState<number | null>(null);
+
+    // Load quests from localStorage on mount
+    const loadQuests = useCallback(() => {
+        const storedQuests = getQuests();
+        setQuests(storedQuests);
+        setTotalXP(getTotalXP());
+    }, []);
+
+    useEffect(() => {
+        loadQuests();
+
+        // Listen for quest completion events
+        const handleQuestComplete = (e: CustomEvent<{ questId: string; xp: number }>) => {
+            setShowXPGain(e.detail.xp);
+            loadQuests();
+
+            // Hide XP popup after animation
+            setTimeout(() => setShowXPGain(null), 2000);
+        };
+
+        const handleQuestReset = () => {
+            loadQuests();
+        };
+
+        window.addEventListener("quest-completed", handleQuestComplete as EventListener);
+        window.addEventListener("quest-reset", handleQuestReset);
+
+        return () => {
+            window.removeEventListener("quest-completed", handleQuestComplete as EventListener);
+            window.removeEventListener("quest-reset", handleQuestReset);
+        };
+    }, [loadQuests]);
 
     const currentLevelIndex = LEVELS.findIndex((l, i) =>
         totalXP >= l.minXP && (i === LEVELS.length - 1 || totalXP < LEVELS[i + 1].minXP)
     );
-    const currentLevel = LEVELS[currentLevelIndex];
+    const currentLevel = LEVELS[currentLevelIndex] || LEVELS[0];
     const nextLevel = LEVELS[currentLevelIndex + 1];
     const progressToNext = nextLevel
         ? ((totalXP - currentLevel.minXP) / (nextLevel.minXP - currentLevel.minXP)) * 100
         : 100;
     const completedCount = quests.filter(q => q.completed).length;
 
-    useEffect(() => {
-        const initialXP = quests.reduce((acc, q) => q.completed ? acc + q.xp : acc, 0);
-        setTotalXP(initialXP);
-    }, []);
-
     return (
         <div className="relative">
+            {/* XP Gain Popup */}
+            <AnimatePresence>
+                {showXPGain && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: -20 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute -top-2 left-1/2 -translate-x-1/2 text-xs font-bold text-green-500 whitespace-nowrap"
+                    >
+                        +{showXPGain} XP!
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             {/* Main Button with Shiny Effect */}
             <motion.button
                 onClick={() => setIsOpen(!isOpen)}
